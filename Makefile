@@ -12,9 +12,9 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
-CFLAGS        = -m64 -pipe -O2 -D_REENTRANT -Wall -W -fPIC $(DEFINES)
-CXXFLAGS      = -m64 -pipe -O2 -D_REENTRANT -Wall -W -fPIC $(DEFINES)
+DEFINES       = -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+CFLAGS        = -m64 -pipe -g -D_REENTRANT -Wall -W -fPIC $(DEFINES)
+CXXFLAGS      = -m64 -pipe -g -D_REENTRANT -Wall -W -fPIC $(DEFINES)
 INCPATH       = -I. -I. -Ilib/websocketpp-master -Ilib/easywsclient -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 DEL_FILE      = rm -f
@@ -35,7 +35,7 @@ COMPRESS      = gzip -9f
 DISTNAME      = MopidyDisplay1.0.0
 DISTDIR = /home/jan/git/MopidyDisplay/.tmp/MopidyDisplay1.0.0
 LINK          = g++
-LFLAGS        = -m64 -Wl,-O1
+LFLAGS        = -m64
 LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
@@ -48,10 +48,12 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = src/main.cpp \
-		src/ws_client.cpp 
-OBJECTS       = main.o \
-		ws_client.o
+SOURCES       = src/ws_client.cpp \
+		src/main.cpp \
+		lib/easywsclient/easywsclient.cpp 
+OBJECTS       = ws_client.o \
+		main.o \
+		easywsclient.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -95,6 +97,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -112,8 +115,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		MopidyDisplay.pro  src/main.cpp \
-		src/ws_client.cpp
+		MopidyDisplay.pro  src/ws_client.cpp \
+		src/main.cpp \
+		lib/easywsclient/easywsclient.cpp
 QMAKE_TARGET  = MopidyDisplay
 DESTDIR       = build/
 TARGET        = build/MopidyDisplay
@@ -169,6 +173,7 @@ Makefile: MopidyDisplay.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/q
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -234,6 +239,7 @@ Makefile: MopidyDisplay.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/q
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -269,7 +275,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents src/main.cpp src/ws_client.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/ws_client.cpp src/main.cpp lib/easywsclient/easywsclient.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -311,12 +317,16 @@ compiler_clean:
 
 ####### Compile
 
-main.o: src/main.cpp 
+ws_client.o: src/ws_client.cpp src/ws_client.hpp \
+		lib/easywsclient/easywsclient.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ws_client.o src/ws_client.cpp
+
+main.o: src/main.cpp src/ws_client.hpp \
+		lib/easywsclient/easywsclient.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
-ws_client.o: src/ws_client.cpp lib/easywsclient/easywsclient.hpp \
-		lib/easywsclient/easywsclient.cpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ws_client.o src/ws_client.cpp
+easywsclient.o: lib/easywsclient/easywsclient.cpp lib/easywsclient/easywsclient.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o easywsclient.o lib/easywsclient/easywsclient.cpp
 
 ####### Install
 

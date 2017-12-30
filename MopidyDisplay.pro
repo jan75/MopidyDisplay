@@ -8,6 +8,7 @@ TARGET = MopidyDisplay
 DESTDIR = "build"
 
 CONFIG += qt
+CONFIG += debug
 
 QT += widgets
 
@@ -15,5 +16,6 @@ INCLUDEPATH += .
 INCLUDEPATH += "lib/websocketpp-master/"
 INCLUDEPATH += "lib/easywsclient/"
 
+SOURCES += src/ws_client.cpp
 SOURCES += src/main.cpp
-SOURCES += src/ws_client.cpp 
+SOURCES += lib/easywsclient/easywsclient.cpp
