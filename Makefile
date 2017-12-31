@@ -48,14 +48,15 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = src/ui.cpp \
+SOURCES       = src/mainwindow.cpp \
 		src/ws_client.cpp \
 		src/main.cpp \
-		lib/easywsclient/easywsclient.cpp 
-OBJECTS       = ui.o \
+		lib/easywsclient/easywsclient.cpp moc_mainwindow.cpp
+OBJECTS       = mainwindow.o \
 		ws_client.o \
 		main.o \
-		easywsclient.o
+		easywsclient.o \
+		moc_mainwindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -117,7 +118,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		MopidyDisplay.pro  src/ui.cpp \
+		MopidyDisplay.pro src/mainwindow.hpp src/mainwindow.cpp \
 		src/ws_client.cpp \
 		src/main.cpp \
 		lib/easywsclient/easywsclient.cpp
@@ -278,7 +279,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents src/ui.cpp src/ws_client.cpp src/main.cpp lib/easywsclient/easywsclient.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/mainwindow.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/mainwindow.cpp src/ws_client.cpp src/main.cpp lib/easywsclient/easywsclient.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -304,8 +306,13 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all:
+compiler_moc_header_make_all: moc_mainwindow.cpp
 compiler_moc_header_clean:
+	-$(DEL_FILE) moc_mainwindow.cpp
+moc_mainwindow.cpp: src/mainwindow.hpp \
+		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/jan/git/MopidyDisplay -I/home/jan/git/MopidyDisplay -I/home/jan/git/MopidyDisplay/lib/easywsclient -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/mainwindow.hpp -o moc_mainwindow.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all:
@@ -316,24 +323,28 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: 
+compiler_clean: compiler_moc_header_clean 
 
 ####### Compile
 
-ui.o: src/ui.cpp src/ui.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ui.o src/ui.cpp
+mainwindow.o: src/mainwindow.cpp src/mainwindow.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o src/mainwindow.cpp
 
 ws_client.o: src/ws_client.cpp src/ws_client.hpp \
+		src/mainwindow.hpp \
 		lib/easywsclient/easywsclient.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ws_client.o src/ws_client.cpp
 
 main.o: src/main.cpp src/ws_client.hpp \
-		lib/easywsclient/easywsclient.hpp \
-		src/ui.hpp
+		src/mainwindow.hpp \
+		lib/easywsclient/easywsclient.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
 easywsclient.o: lib/easywsclient/easywsclient.cpp lib/easywsclient/easywsclient.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o easywsclient.o lib/easywsclient/easywsclient.cpp
+
+moc_mainwindow.o: moc_mainwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
 ####### Install
 

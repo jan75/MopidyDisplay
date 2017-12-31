@@ -15,7 +15,9 @@ QT += widgets
 INCLUDEPATH += .
 INCLUDEPATH += "lib/easywsclient/"
 
-SOURCES += src/ui.cpp
+SOURCES += src/mainwindow.cpp
 SOURCES += src/ws_client.cpp
 SOURCES += src/main.cpp
 SOURCES += lib/easywsclient/easywsclient.cpp
+
+HEADERS += src/mainwindow.hpp
