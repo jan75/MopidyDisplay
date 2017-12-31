@@ -3,6 +3,8 @@
 #define H_WS_CLIENT
 
 #include <memory>
+#include <iostream>
+#include <thread>
 
 #include <easywsclient.hpp>
 
@@ -13,8 +15,10 @@ class WebSocketClient {
         void handle_message(std::string msg);
     
 	public:
+        easywsclient::WebSocket::pointer get_ws();
         bool connect_ws(std::string url);
-        void poll_ws();
+        static void poll_ws(easywsclient::WebSocket::pointer ws);
+        
 };
 
 #endif

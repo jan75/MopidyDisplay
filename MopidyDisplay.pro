@@ -13,9 +13,9 @@ CONFIG += debug
 QT += widgets
 
 INCLUDEPATH += .
-INCLUDEPATH += "lib/websocketpp-master/"
 INCLUDEPATH += "lib/easywsclient/"
 
+SOURCES += src/ui.cpp
 SOURCES += src/ws_client.cpp
 SOURCES += src/main.cpp
 SOURCES += lib/easywsclient/easywsclient.cpp

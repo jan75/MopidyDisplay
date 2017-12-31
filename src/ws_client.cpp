@@ -15,25 +15,28 @@ bool WebSocketClient::connect_ws(std::string url) {
         return false;
     }
     
-    WebSocket::pointer wsp = WebSocket::from_url(url);
-    
-    std::unique_ptr<WebSocket> ws(wsp);
+    ws = WebSocket::from_url(url);
     
     return true;
 }
 
+WebSocket::pointer WebSocketClient::get_ws() {
+    return ws;
+}
+
+void WebSocketClient::poll_ws(WebSocket::pointer ws) {
+    //printf("%s\n", ws);
+    //std::cout<<"ws is of type: " << typeid(ws).name() << std::endl;
+    WebSocket::pointer wsp = &*ws;
+    while(true) {
+        ws->poll(-1);
+        ws->dispatch([wsp](const std::string &msg) {
+                //this->handle_message(msg);
+                printf("%s\n", msg.c_str());
+            });
+    }
+}
 
 void WebSocketClient::handle_message(std::string msg) {
     printf("%s\n", msg.c_str());
-}
-
-void WebSocketClient::poll_ws() {
-    //WebSocket::pointer wsp = &*ws;
-    this->ws->poll(1);
-    /*
-    ws->dispatch([wsp](const std::string &msg) {
-            //this->handle_message(msg);
-            printf("%s\n", msg.c_str());
-        });
-        */
 }

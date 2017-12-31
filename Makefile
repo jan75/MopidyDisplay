@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -m64 -pipe -g -D_REENTRANT -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -m64 -pipe -g -D_REENTRANT -Wall -W -fPIC $(DEFINES)
-INCPATH       = -I. -I. -Ilib/websocketpp-master -Ilib/easywsclient -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
+INCPATH       = -I. -I. -Ilib/easywsclient -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -48,10 +48,12 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = src/ws_client.cpp \
+SOURCES       = src/ui.cpp \
+		src/ws_client.cpp \
 		src/main.cpp \
 		lib/easywsclient/easywsclient.cpp 
-OBJECTS       = ws_client.o \
+OBJECTS       = ui.o \
+		ws_client.o \
 		main.o \
 		easywsclient.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -115,7 +117,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		MopidyDisplay.pro  src/ws_client.cpp \
+		MopidyDisplay.pro  src/ui.cpp \
+		src/ws_client.cpp \
 		src/main.cpp \
 		lib/easywsclient/easywsclient.cpp
 QMAKE_TARGET  = MopidyDisplay
@@ -275,7 +278,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents src/ws_client.cpp src/main.cpp lib/easywsclient/easywsclient.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/ui.cpp src/ws_client.cpp src/main.cpp lib/easywsclient/easywsclient.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -317,12 +320,16 @@ compiler_clean:
 
 ####### Compile
 
+ui.o: src/ui.cpp src/ui.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ui.o src/ui.cpp
+
 ws_client.o: src/ws_client.cpp src/ws_client.hpp \
 		lib/easywsclient/easywsclient.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ws_client.o src/ws_client.cpp
 
 main.o: src/main.cpp src/ws_client.hpp \
-		lib/easywsclient/easywsclient.hpp
+		lib/easywsclient/easywsclient.hpp \
+		src/ui.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
 easywsclient.o: lib/easywsclient/easywsclient.cpp lib/easywsclient/easywsclient.hpp

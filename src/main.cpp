@@ -5,9 +5,8 @@
 #include <QtWidgets>
 
 #include "ws_client.hpp"
-#include <memory>
+#include "ui.hpp"
 
-using std::unique_ptr;
 using easywsclient::WebSocket;
 
 
@@ -17,20 +16,12 @@ int main(int argv, char **args) {
     
     WebSocketClient wsc;
     wsc.connect_ws("ws://192.168.178.26:6680/mopidy/ws");
-    wsc.poll_ws();
-    /*
-    unique_ptr<WebSocket> ws = wsc.get_ws();
-    while(true) {
-        WebSocket::pointer wsp = &*ws;
-        ws->poll(1);
-        ws->dispatch([wsp](const std::string &message) {
-                handle_message(message);
-                //printf("%s\n", message.c_str());
-            });
-    }
-    */
-
-	QApplication application(argv, args);
+    
+    WebSocket::pointer ws = wsc.get_ws();
+    std::thread thread_poll(&WebSocketClient::poll_ws, ws);
+    thread_poll.detach();
+    
+    QApplication application(argv, args);
 	QWidget window;
 	
 	QLabel label;
