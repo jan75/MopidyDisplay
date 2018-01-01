@@ -6,12 +6,14 @@
 #include <QtWidgets>
 #include <QWidget>
 
+#include "ws_client.hpp"
+
 class MainWindow : public QWidget {
     Q_OBJECT
     
     public:
         MainWindow(QWidget *parent = 0);
-        static void update_label_text(std::string text);
+        void update_label_text(std::string text);
         
     private:
         QLabel label;

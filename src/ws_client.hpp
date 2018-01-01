@@ -5,19 +5,25 @@
 #include <memory>
 #include <iostream>
 #include <thread>
+#include <unistd.h>
+#include <functional>
 
-#include "mainwindow.hpp"
 #include <easywsclient.hpp>
+//#include "mainwindow.hpp"
+
+class MainWindow;
 
 class WebSocketClient {
     private:
         easywsclient::WebSocket::pointer ws;
+        MainWindow *mainWindow;
     
 	public:
         easywsclient::WebSocket::pointer get_ws();
         bool connect_ws(std::string url);
-        
-        static void poll_ws(easywsclient::WebSocket::pointer ws, MainWindow mainWindow);
+        void set_mainwindow(MainWindow *mainWin);
+        void poll_ws();
+
 };
 
 #endif
