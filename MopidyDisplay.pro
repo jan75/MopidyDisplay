@@ -9,11 +9,13 @@ DESTDIR = "build"
 
 CONFIG += qt
 CONFIG += debug
+CONFIG += c++11
 
 QT += widgets
 
 INCLUDEPATH += .
 INCLUDEPATH += "lib/easywsclient/"
+INCLUDEPATH += "lib/json/"
 
 SOURCES += src/mainwindow.cpp
 SOURCES += src/ws_client.cpp

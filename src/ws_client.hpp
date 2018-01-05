@@ -23,6 +23,8 @@ class WebSocketClient {
         bool connect_ws(std::string url);
         void set_mainwindow(MainWindow *mainWin);
         void poll_ws();
+        
+        void send_ws();
 
 };
 

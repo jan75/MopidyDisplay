@@ -7,19 +7,10 @@
 
 #include "mainwindow.hpp"
 #include "ws_client.hpp"
+#include <json.hpp>
 
 using easywsclient::WebSocket;
-
-void update_view() {
-    int x = 0;
-    while(x < 1000) {
-        printf("%i\n", x);
-        std::string x_str = std::to_string(x);
-        //MainWindow::update_label_text(x_str, mainWindow);
-        x++;
-        usleep(50000);
-    }
-}
+using nlohmann::json;
 
 int main(int argv, char **args) {
     QApplication application(argv, args);
@@ -32,6 +23,8 @@ int main(int argv, char **args) {
     
     std::thread thread_poll(&WebSocketClient::poll_ws, &wsc);
     thread_poll.detach();
+    
+    json json_test;
     
     mainWindow.show();
 	return application.exec();

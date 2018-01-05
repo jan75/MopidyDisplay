@@ -7,6 +7,7 @@
 #include <QWidget>
 
 #include "ws_client.hpp"
+#include <json.hpp>
 
 class MainWindow : public QWidget {
     Q_OBJECT
