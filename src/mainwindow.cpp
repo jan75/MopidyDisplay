@@ -1,4 +1,4 @@
-// ui.cpp
+// mainwindow.cpp
 #include "mainwindow.hpp"
 
 using nlohmann::json;
@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 };
 
 void MainWindow::update_label_text(std::string text) {
+	QMutexLocker locker(&mutex); 
     json json_test;
     json_test = json::parse(text);
     QString qstring = QString::fromStdString(text);

@@ -1,10 +1,11 @@
-// ui.hpp
+// mainwindow.hpp
 #ifndef H_MAINWINDOW
 #define H_MAINWINDOW
 #include <QApplication>
 #include <QLabel>
 #include <QtWidgets>
 #include <QWidget>
+#include <QMutex>
 
 #include "ws_client.hpp"
 #include <json.hpp>
@@ -17,6 +18,7 @@ class MainWindow : public QWidget {
         void update_label_text(std::string text);
         
     private:
+		mutable QMutex mutex;
         QLabel label;
         
     signals:
