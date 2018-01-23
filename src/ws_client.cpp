@@ -16,8 +16,11 @@ bool WebSocketClient::connect_ws(std::string url) {
     }
     
     ws = WebSocket::from_url(url);
-    
-    return true;
+    if(ws != NULL) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 WebSocket::pointer WebSocketClient::get_ws() {

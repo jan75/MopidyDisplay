@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     connectBox.setFlat(true);
     connectBox.setLayout(connectLayout);
     
-    //connect(btnConnectWS, SIGNAL(click()), this, SLOT(connect_ws()));
+    connect(&btnConnectWS, SIGNAL(clicked()), this, SLOT(connect_ws()));
     
     layout->addWidget(&connectBox);
     layout->addWidget(&label);
@@ -26,14 +26,32 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 };
 
 void MainWindow::connect_ws() {
-    update_label_text("Button clicked!");
+    QString url = inputWSAddress.text();
+    std::string urlStr = url.toStdString();
+    //std::cout << urlStr << std::endl;
+    bool result = wsc->connect_ws(urlStr);
+    if(result != false) {
+        std::stringstream msgStream;
+        msgStream << "Connected to " << urlStr << std::endl;
+        std::string msg = msgStream.str();
+        update_label_text(msg);
+    } else {
+        std::stringstream msgStream;
+        msgStream << "Could not connect to " << urlStr << std::endl;
+        std::string msg = msgStream.str();
+        update_label_text(msg);
+    }
+}
+
+void MainWindow::set_wsc(WebSocketClient *wscParam) {
+    this->wsc = wscParam;
 }
 
 void MainWindow::update_label_text(std::string text) {
-	QMutexLocker locker(&mutex); 
-    json json_test;
-    json_test = json::parse(text);
+	QMutexLocker locker(&mutex);
+    //json json_test;
+    //json_test = json::parse(text);
     QString qstring = QString::fromStdString(text);
-    printf("%s\n", text.c_str());
+    //printf("%s\n", text.c_str());
     label.setText(qstring);
 };

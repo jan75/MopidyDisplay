@@ -18,8 +18,10 @@ class MainWindow : public QWidget {
     public:
         MainWindow(QWidget *parent = 0);
         void update_label_text(std::string text);
+        void set_wsc(WebSocketClient *wsc);
         
     private:
+        WebSocketClient *wsc;
         QLabel label;
 		mutable QMutex mutex;
         QPushButton btnConnectWS;
