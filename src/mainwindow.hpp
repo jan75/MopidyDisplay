@@ -5,6 +5,8 @@
 #include <QLabel>
 #include <QtWidgets>
 #include <QWidget>
+#include <QLineEdit>
+#include <QGroupBox>
 #include <QMutex>
 
 #include "ws_client.hpp"
@@ -18,12 +20,15 @@ class MainWindow : public QWidget {
         void update_label_text(std::string text);
         
     private:
-		mutable QMutex mutex;
         QLabel label;
-        
-    signals:
-        void overflow();
-        void text_changed(std::string text);
+		mutable QMutex mutex;
+        QPushButton btnConnectWS;
+        QLineEdit inputWSAddress;
+        QGroupBox connectBox;
+        QString placeholderConnectionStr;
+    
+    private slots:
+        void connect_ws();
         
 };
 

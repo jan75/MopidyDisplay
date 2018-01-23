@@ -20,10 +20,10 @@ int main(int argv, char **args) {
     
     WebSocketClient wsc;
     wsc.set_mainwindow(&mainWindow);
-    //wsc.connect_ws("ws://192.168.178.26:6680/mopidy/ws");
-    
-    //std::thread thread_poll(&WebSocketClient::poll_ws, &wsc);
-    //thread_poll.detach();
+    wsc.connect_ws("ws://127.0.0.1:6680/mopidy/ws");
+   
+    std::thread thread_poll(&WebSocketClient::poll_ws, &wsc);
+    thread_poll.detach();
     
     json json_test;
     

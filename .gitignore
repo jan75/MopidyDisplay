@@ -2,4 +2,4 @@ build
 *.o
 .qmake.stash
 *.cpp.swp
-
+Makefile
