@@ -25,7 +25,6 @@ class WebSocketClient {
         void poll_ws();
         
         void send_ws();
-
 };
 
 #endif

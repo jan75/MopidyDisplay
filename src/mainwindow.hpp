@@ -7,8 +7,15 @@
 #include <QWidget>
 #include <QLineEdit>
 #include <QGroupBox>
+#include <QAction>
 #include <QMutex>
+#include <QMenuBar>
+#include <QMenu>
+#include <QTabWidget>
+#include <QPlainTextEdit>
+#include <unistd.h>
 
+#include "settings.hpp"
 #include "ws_client.hpp"
 #include <json.hpp>
 
@@ -22,15 +29,18 @@ class MainWindow : public QWidget {
         
     private:
         WebSocketClient *wsc;
+        SettingsWindow settingsWindow;
         QLabel label;
+        QPlainTextEdit plainText;
 		mutable QMutex mutex;
-        QPushButton btnConnectWS;
-        QLineEdit inputWSAddress;
-        QGroupBox connectBox;
-        QString placeholderConnectionStr;
+        QMenuBar menuBar;
+        QMenu mainMenu;
+        QMenu aboutMenu;
+        QAction settingsAction;
+        //QTabWidget settingsWidget;
     
     private slots:
-        void connect_ws();
+        void show_settings();
         
 };
 
