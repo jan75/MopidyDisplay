@@ -24,7 +24,7 @@ class WebSocketClient {
         void set_mainwindow(MainWindow *mainWin);
         void poll_ws();
         
-        void send_ws();
+        void send_ws(std::string message);
 };
 
 #endif

@@ -57,7 +57,18 @@ void MainWindow::quit_application() {
 void MainWindow::search_artist() {
     QString query = searchInput.text();
     std::string queryStr = query.toStdString();
-    std::cout << queryStr << std::endl;
+    json queryJson;
+    queryJson = {
+        {"jsonrpc", 2.0},
+        {"id", 1},
+        {"method", "core.library.find_exact"},
+        {"params", {
+            {"artist", "default"},
+        }}
+    };
+    queryJson["params"]["artist"] = queryStr;
+    std::cout << queryJson.dump(4) << std::endl;
+    wsc->send_ws(queryJson.dump());
 }
 
 void MainWindow::set_wsc(WebSocketClient *wscParam) {
