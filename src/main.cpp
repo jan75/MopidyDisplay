@@ -22,8 +22,6 @@ int main(int argv, char **args) {
     wsc.set_mainwindow(&mainWindow);
     mainWindow.set_wsc(&wsc);
     
-    //json json_test;
-    
     mainWindow.show();
 	return application.exec();
 }

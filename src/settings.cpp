@@ -5,10 +5,9 @@ SettingsWindow::SettingsWindow(QTabWidget *parent) : QTabWidget(parent) {
     setWindowTitle("Settings");
     
     QVBoxLayout *settingsLayout = new QVBoxLayout;
-    
     QHBoxLayout *connectLayout = new QHBoxLayout;
     
-    placeholderConnectionStr = QString::fromStdString("ws://127.0.0.1:6680/mopidy/ws");
+    placeholderConnectionStr = QString::fromStdString("ws://htpc-jan:6680/mopidy/ws");
     inputWSAddress.setPlaceholderText(placeholderConnectionStr);
     inputWSAddress.setText(placeholderConnectionStr);
     connectLayout->addWidget(&inputWSAddress);
@@ -17,7 +16,9 @@ SettingsWindow::SettingsWindow(QTabWidget *parent) : QTabWidget(parent) {
     //connectBox.setFlat(true);
     connectBox.setLayout(connectLayout);
     
+    connectionStatus.setText("Connect to a Mopidy web interface instance");
     settingsLayout->addWidget(&connectBox);
+    settingsLayout->addWidget(&connectionStatus);
     connectionSettings.setLayout(settingsLayout);
     
     connect(&btnConnectWS, SIGNAL(clicked()), this, SLOT(connect_ws()));
@@ -40,13 +41,15 @@ void SettingsWindow::connect_ws() {
         std::stringstream msgStream;
         msgStream << "Connected to " << urlStr << std::endl;
         std::string msg = msgStream.str();
-        //mainWindow->update_label_text(msg);
+        QString qmsg = QString::fromStdString(msg);
+        connectionStatus.setText(qmsg);
         std::thread thread_poll(&WebSocketClient::poll_ws, wsc);
         thread_poll.detach();
     } else {
         std::stringstream msgStream;
         msgStream << "Could not connect to " << urlStr << std::endl;
         std::string msg = msgStream.str();
-        //mainWindow->update_label_text(msg);
+        QString qmsg = QString::fromStdString(msg);
+        connectionStatus.setText(qmsg);
     }
 }

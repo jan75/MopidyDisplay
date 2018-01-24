@@ -37,10 +37,18 @@ class MainWindow : public QWidget {
         QMenu mainMenu;
         QMenu aboutMenu;
         QAction settingsAction;
-        //QTabWidget settingsWidget;
+        QAction quitAction;
+        QGroupBox searchBox;
+        QPushButton searchBtn;
+        QLineEdit searchInput;
+        
+    protected:
+        void closeEvent(QCloseEvent*);
     
     private slots:
         void show_settings();
+        void quit_application();
+        void search_artist();
         
 };
 

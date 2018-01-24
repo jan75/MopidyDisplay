@@ -23,11 +23,13 @@ class SettingsWindow : public QTabWidget {
     private:
         WebSocketClient *wsc;
         MainWindow *mainWindow;
+
         QWidget connectionSettings;
         QPushButton btnConnectWS;
         QLineEdit inputWSAddress;
         QGroupBox connectBox;
         QString placeholderConnectionStr;
+        QLabel connectionStatus;
         
     private slots:
         void connect_ws();
