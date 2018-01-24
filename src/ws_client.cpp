@@ -39,4 +39,5 @@ void WebSocketClient::poll_ws() {
 
 void WebSocketClient::send_ws(std::string message) {
     ws->send(message);
+    ws->poll();
 }

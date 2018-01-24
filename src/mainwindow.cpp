@@ -59,11 +59,12 @@ void MainWindow::search_artist() {
     std::string queryStr = query.toStdString();
     json queryJson;
     queryJson = {
-        {"jsonrpc", 2.0},
+        {"jsonrpc", "2.0"},
         {"id", 1},
         {"method", "core.library.find_exact"},
         {"params", {
             {"artist", "default"},
+            {"track_name", "Elvenpath"}
         }}
     };
     queryJson["params"]["artist"] = queryStr;
