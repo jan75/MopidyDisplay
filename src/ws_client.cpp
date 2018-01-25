@@ -11,8 +11,7 @@ void WebSocketClient::set_mainwindow(MainWindow *mainWin) {
 
 WebSocketClient::WebSocketClient() {
     connected = false;
-    connect(this, SIGNAL(dispatch_message(QString)), this, SLOT(test_print_slot(QString)));
-    //connect(this, &WebSocketClient::dispatch_message, this, &WebSocketClient::test_print_slot);
+    connect(this, &WebSocketClient::dispatch_message, this, &WebSocketClient::test_print_slot);
 }
 
 bool WebSocketClient::connect_ws(std::string url) {

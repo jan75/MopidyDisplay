@@ -21,9 +21,11 @@ SOURCES += src/mainwindow.cpp
 SOURCES += src/settings.cpp
 SOURCES += src/ws_client.cpp
 SOURCES += src/main.cpp
+SOURCES += src/messagehandler.cpp
 SOURCES += lib/easywsclient/easywsclient.cpp
 
 HEADERS += src/mainwindow.hpp
 HEADERS += src/settings.hpp
 HEADERS += src/ws_client.hpp
+HEADERS += src/messagehandler.hpp
 HEADRES += lib/easywsclient/easywsclient.hpp
