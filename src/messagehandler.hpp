@@ -12,12 +12,13 @@
 class MessageHandler : public QObject {
     Q_OBJECT
     
-    public:
-        MessageHandler(MainWindow *mainWindow, WebSocketClient *wsc, QWidget *parent = 0);
-        
-	private:
+    private:
 		MainWindow *mainWindow;
 		WebSocketClient *wsc;
+    
+    public:
+        //MessageHandler(QWidget *parent = 0);
+        //MessageHandler(MainWindow *mainWindowParm, WebSocketClient *wscParam, QWidget *parent = 0);
         
 };
 

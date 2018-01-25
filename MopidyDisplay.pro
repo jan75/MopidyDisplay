@@ -17,11 +17,7 @@ INCLUDEPATH += .
 INCLUDEPATH += "lib/easywsclient/"
 INCLUDEPATH += "lib/json/"
 
-SOURCES += src/mainwindow.cpp
-SOURCES += src/settings.cpp
-SOURCES += src/ws_client.cpp
-SOURCES += src/main.cpp
-SOURCES += src/messagehandler.cpp
+SOURCES += src/*.cpp
 SOURCES += lib/easywsclient/easywsclient.cpp
 
 HEADERS += src/mainwindow.hpp
