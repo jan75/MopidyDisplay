@@ -7,7 +7,7 @@ SettingsWindow::SettingsWindow(QTabWidget *parent) : QTabWidget(parent) {
     QVBoxLayout *settingsLayout = new QVBoxLayout;
     QHBoxLayout *connectLayout = new QHBoxLayout;
     
-    placeholderConnectionStr = QString::fromStdString("ws://127.0.0.1:6680/mopidy/ws");
+    placeholderConnectionStr = QString::fromStdString("ws://htpc-jan:6680/mopidy/ws");
     inputWSAddress.setPlaceholderText(placeholderConnectionStr);
     inputWSAddress.setText(placeholderConnectionStr);
     connectLayout->addWidget(&inputWSAddress);

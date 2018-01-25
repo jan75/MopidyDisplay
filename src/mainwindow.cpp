@@ -82,9 +82,13 @@ void MainWindow::set_wsc(WebSocketClient *wscParam) {
 
 void MainWindow::update_label_text(QString qText) {
 	QMutexLocker locker(&mutex);
-    //json json_test;
-    //json_test = json::parse(text);
+    
+    std::string textStr = qText.toStdString();
+    json json_test = json::parse(qText.toStdString());
+    //std::string prettyJson = json_test.dump(4);
+    QString qPrettyJson = QString::fromStdString(json_test.dump(4));
+    
     plainText.clear();
-    plainText.appendPlainText(qText);
+    plainText.appendPlainText(qPrettyJson);
     //label.setText(qText);
 };

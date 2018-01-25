@@ -49,7 +49,7 @@ void WebSocketClient::poll_ws() {
 
 void WebSocketClient::test_print_slot(QString msg) {
     std::string msgStr = msg.toStdString();
-    std::cout << msgStr << std::endl;
+    //std::cout << msgStr << std::endl;
 }
 
 void WebSocketClient::send_ws(std::string message) {
