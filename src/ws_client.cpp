@@ -9,6 +9,11 @@ void WebSocketClient::set_mainwindow(MainWindow *mainWin) {
     this->mainWindow = mainWin;
 }
 
+WebSocketClient::WebSocketClient() {
+    connected = false;
+    connect(this, SIGNAL(dispatch_message(QString)), this, SLOT(test_print_slot(QString)));
+    //connect(this, &WebSocketClient::dispatch_message, this, &WebSocketClient::test_print_slot);
+}
 
 bool WebSocketClient::connect_ws(std::string url) {
     if(url == "") {
@@ -17,6 +22,7 @@ bool WebSocketClient::connect_ws(std::string url) {
     
     ws = WebSocket::from_url(url);
     if(ws != NULL) {
+        connected = true;
         return true;
     } else {
         return false;
@@ -27,17 +33,26 @@ WebSocket::pointer WebSocketClient::get_ws() {
     return ws;
 }
 
+bool WebSocketClient::get_connected() {
+    return connected;
+}
+
 void WebSocketClient::poll_ws() {
     WebSocket::pointer wsp = &*ws;
     while(true) {
-        ws->poll(-1);        
-        ws->dispatch([this, wsp](const std::string msg) {
-                mainWindow->update_label_text(msg);
+        ws->poll(0);        
+        ws->dispatch([this, wsp](std::string msg) {
+                QString qMsg = QString::fromStdString(msg);
+                emit dispatch_message(qMsg);
             });
     }
 }
 
+void WebSocketClient::test_print_slot(QString msg) {
+    std::string msgStr = msg.toStdString();
+    std::cout << msgStr << std::endl;
+}
+
 void WebSocketClient::send_ws(std::string message) {
     ws->send(message);
-    ws->poll();
 }

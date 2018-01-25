@@ -13,6 +13,7 @@
 #include <QMenu>
 #include <QTabWidget>
 #include <QPlainTextEdit>
+#include <QMetaType>
 #include <unistd.h>
 
 #include "settings.hpp"
@@ -24,7 +25,7 @@ class MainWindow : public QWidget {
     
     public:
         MainWindow(QWidget *parent = 0);
-        void update_label_text(std::string text);
+        //void update_label_text(std::string text);
         void set_wsc(WebSocketClient *wsc);
         
     private:
@@ -49,6 +50,7 @@ class MainWindow : public QWidget {
         void show_settings();
         void quit_application();
         void search_artist();
+        void update_label_text(QString qText);
         
 };
 

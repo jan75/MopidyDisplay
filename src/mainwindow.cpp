@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 };
 
 void MainWindow::closeEvent(QCloseEvent*) {
-    qApp->quit();
+    quit_application();
 }
 
 void MainWindow::show_settings() {
@@ -55,33 +55,36 @@ void MainWindow::quit_application() {
 }
 
 void MainWindow::search_artist() {
-    QString query = searchInput.text();
-    std::string queryStr = query.toStdString();
-    json queryJson;
-    queryJson = {
-        {"jsonrpc", "2.0"},
-        {"id", 1},
-        {"method", "core.library.find_exact"},
-        {"params", {
-            {"artist", "default"},
-            {"track_name", "Elvenpath"}
-        }}
-    };
-    queryJson["params"]["artist"] = queryStr;
-    std::cout << queryJson.dump(4) << std::endl;
-    wsc->send_ws(queryJson.dump());
+    bool connected = wsc->get_connected();
+    if(connected != false) {
+        QString query = searchInput.text();
+        std::string queryStr = query.toStdString();
+        json queryJson;
+        queryJson = {
+            {"jsonrpc", "2.0"},
+            {"id", 1},
+            {"method", "core.library.find_exact"},
+            {"params", {
+                {"artist", "default"},
+            }}
+        };
+        queryJson["params"]["artist"] = queryStr;
+        //std::cout << queryJson.dump(4) << std::endl;
+        wsc->send_ws(queryJson.dump());
+    }
 }
 
 void MainWindow::set_wsc(WebSocketClient *wscParam) {
     this->wsc = wscParam;
     settingsWindow.set_wsc(wscParam);
+    connect(wsc, &WebSocketClient::dispatch_message, this, &MainWindow::update_label_text);
 }
 
-void MainWindow::update_label_text(std::string text) {
+void MainWindow::update_label_text(QString qText) {
 	QMutexLocker locker(&mutex);
     //json json_test;
     //json_test = json::parse(text);
-    QString qText = QString::fromStdString(text);
     plainText.clear();
     plainText.appendPlainText(qText);
+    //label.setText(qText);
 };
