@@ -39,9 +39,14 @@ class MainWindow : public QWidget {
         QMenu aboutMenu;
         QAction settingsAction;
         QAction quitAction;
-        QGroupBox searchBox;
-        QPushButton searchBtn;
+        
+        QGroupBox topBox;
+        QPushButton previousSong;
+        QPushButton togglePlay;
+        QPushButton nextSong;
+        QLabel currentSong;
         QLineEdit searchInput;
+        QPushButton searchBtn;
         
     protected:
         void closeEvent(QCloseEvent*);
@@ -50,6 +55,9 @@ class MainWindow : public QWidget {
         void show_settings();
         void quit_application();
         void search_artist();
+        
+    public slots:
+        void set_current_song(QString qText);
         void update_label_text(QString qText);
         
 };

@@ -15,10 +15,20 @@ class MessageHandler : public QObject {
     private:
 		MainWindow *mainWindow;
 		WebSocketClient *wsc;
+        
+        nlohmann::json create_json_object(std::string msg);
+        void handle_event(nlohmann::json msgJson);
+        void send_json(nlohmann::json msgJson);
     
     public:
-        //MessageHandler(QWidget *parent = 0);
-        //MessageHandler(MainWindow *mainWindowParm, WebSocketClient *wscParam, QWidget *parent = 0);
+        MessageHandler(QObject *parent = 0);
+        MessageHandler(MainWindow *mainWindow, WebSocketClient *wsc, QObject *parent = 0);
+        
+    private slots:
+        void handle_message(QString msg);
+        
+    signals:
+        void track_change(QString msg);
         
 };
 

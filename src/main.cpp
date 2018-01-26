@@ -8,6 +8,7 @@
 
 #include "mainwindow.hpp"
 #include "ws_client.hpp"
+#include "messagehandler.hpp"
 #include <json.hpp>
 
 using easywsclient::WebSocket;
@@ -21,6 +22,8 @@ int main(int argv, char **args) {
     WebSocketClient wsc;
     wsc.set_mainwindow(&mainWindow);
     mainWindow.set_wsc(&wsc);
+    
+    MessageHandler messageHandler(&mainWindow, &wsc);
     
     mainWindow.show();
 	return application.exec();

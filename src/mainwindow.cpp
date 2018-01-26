@@ -28,15 +28,24 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     connect(&settingsAction, SIGNAL(triggered()), this, SLOT(show_settings()));
     connect(&quitAction, SIGNAL(triggered()), this, SLOT(quit_application()));
     
-    QHBoxLayout *searchLayout = new QHBoxLayout;
-    searchLayout->addWidget(&searchInput);
-    searchBtn.setText("Search");
-    searchLayout->addWidget(&searchBtn);
+    QHBoxLayout *barLayout = new QHBoxLayout;
+    previousSong.setText("<");
+    togglePlay.setText("Play");
+    nextSong.setText(">");
+    currentSong.setText("-");    
+    searchBtn.setText("Search Artist");
+    
+    barLayout->addWidget(&previousSong);
+    barLayout->addWidget(&togglePlay);
+    barLayout->addWidget(&nextSong);
+    barLayout->addWidget(&currentSong);
+    barLayout->addWidget(&searchInput);
+    barLayout->addWidget(&searchBtn);
     //connectBox.setFlat(true);
-    searchBox.setLayout(searchLayout);
+    topBox.setLayout(barLayout);
     connect(&searchBtn, SIGNAL(clicked()), this, SLOT(search_artist()));
     
-    layout->addWidget(&searchBox);
+    layout->addWidget(&topBox);
     layout->addWidget(&plainText);
     layout->addWidget(&label);
     setLayout(layout);
@@ -77,7 +86,6 @@ void MainWindow::search_artist() {
 void MainWindow::set_wsc(WebSocketClient *wscParam) {
     this->wsc = wscParam;
     settingsWindow.set_wsc(wscParam);
-    connect(wsc, &WebSocketClient::dispatch_message, this, &MainWindow::update_label_text);
 }
 
 void MainWindow::update_label_text(QString qText) {
@@ -85,10 +93,13 @@ void MainWindow::update_label_text(QString qText) {
     
     std::string textStr = qText.toStdString();
     json json_test = json::parse(qText.toStdString());
-    //std::string prettyJson = json_test.dump(4);
     QString qPrettyJson = QString::fromStdString(json_test.dump(4));
     
     plainText.clear();
     plainText.appendPlainText(qPrettyJson);
     //label.setText(qText);
 };
+
+void MainWindow::set_current_song(QString qText) {
+    currentSong.setText(qText);
+}
