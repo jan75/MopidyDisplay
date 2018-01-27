@@ -48,6 +48,10 @@ class MainWindow : public QWidget {
         QLineEdit searchInput;
         QPushButton searchBtn;
         
+        QGroupBox bottomBox;
+        QLabel connectionStatusLabel;
+        QPushButton connectWSBtn;
+        
     protected:
         void closeEvent(QCloseEvent*);
     

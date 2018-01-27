@@ -3,7 +3,7 @@
 
 using nlohmann::json;
 
-MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {    
+MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     plainText.setLineWrapMode(QPlainTextEdit::WidgetWidth);
     plainText.setReadOnly(true);
 
@@ -45,9 +45,18 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     topBox.setLayout(barLayout);
     connect(&searchBtn, SIGNAL(clicked()), this, SLOT(search_artist()));
     
+    QHBoxLayout *bottomLayout = new QHBoxLayout;
+    connectWSBtn.setText("Connect");
+    connectionStatusLabel.setText("Not connected");
+    bottomLayout->addWidget(&connectWSBtn);
+    bottomLayout->addWidget(&connectionStatusLabel);
+    bottomBox.setFlat(true);
+    bottomBox.setLayout(bottomLayout);
+    
     layout->addWidget(&topBox);
     layout->addWidget(&plainText);
-    layout->addWidget(&label);
+    //layout->addWidget(&label);
+    layout->addWidget(&bottomBox);
     setLayout(layout);
 };
 

@@ -5,13 +5,8 @@
 using easywsclient::WebSocket;
 using namespace std::placeholders;
 
-void WebSocketClient::set_mainwindow(MainWindow *mainWin) {
-    this->mainWindow = mainWin;
-}
-
 WebSocketClient::WebSocketClient() {
     connected = false;
-    connect(this, &WebSocketClient::dispatch_message, this, &WebSocketClient::test_print_slot);
 }
 
 bool WebSocketClient::connect_ws(std::string url) {
@@ -45,11 +40,6 @@ void WebSocketClient::poll_ws() {
                 emit dispatch_message(qMsg);
             });
     }
-}
-
-void WebSocketClient::test_print_slot(QString msg) {
-    std::string msgStr = msg.toStdString();
-    //std::cout << msgStr << std::endl;
 }
 
 void WebSocketClient::send_ws(std::string message) {

@@ -20,7 +20,6 @@ int main(int argv, char **args) {
     MainWindow mainWindow;
     
     WebSocketClient wsc;
-    wsc.set_mainwindow(&mainWindow);
     mainWindow.set_wsc(&wsc);
     
     MessageHandler messageHandler(&mainWindow, &wsc);

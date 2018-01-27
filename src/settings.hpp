@@ -18,6 +18,9 @@ class SettingsWindow : public QTabWidget {
     
     public:
         SettingsWindow(QTabWidget *parent = 0);
+        
+        bool connect_ws();
+        
         void set_wsc(WebSocketClient *wsc);
         
     private:
@@ -25,14 +28,9 @@ class SettingsWindow : public QTabWidget {
         MainWindow *mainWindow;
 
         QWidget connectionSettings;
-        QPushButton btnConnectWS;
         QLineEdit inputWSAddress;
         QGroupBox connectBox;
         QString placeholderConnectionStr;
-        QLabel connectionStatus;
-        
-    private slots:
-        void connect_ws();
 };
 
 #endif
