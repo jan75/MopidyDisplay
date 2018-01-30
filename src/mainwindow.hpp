@@ -59,6 +59,7 @@ class MainWindow : public QWidget {
         void show_settings();
         void quit_application();
         void search_artist();
+        void slot_connect();
         
     public slots:
         void set_current_song(QString qText);

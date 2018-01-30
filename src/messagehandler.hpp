@@ -3,6 +3,8 @@
 #define H_MESSAGEHANDLER
 #include <QObject>
 #include <QMetaType>
+#include <QDir>
+#include <QUrl>
 #include <unistd.h>
 
 #include "mainwindow.hpp"
@@ -19,6 +21,8 @@ class MessageHandler : public QObject {
         nlohmann::json create_json_object(std::string msg);
         void handle_event(nlohmann::json msgJson);
         void send_json(nlohmann::json msgJson);
+        
+        void scan_for_file(std::string path_file);
     
     public:
         MessageHandler(QObject *parent = 0);

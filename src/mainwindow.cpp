@@ -30,15 +30,20 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     
     QHBoxLayout *barLayout = new QHBoxLayout;
     previousSong.setText("<");
+    previousSong.setMaximumWidth(20);
     togglePlay.setText("Play");
+    togglePlay.setMaximumWidth(60);
     nextSong.setText(">");
-    currentSong.setText("-");    
+    nextSong.setMaximumWidth(20);
+    
+    searchInput.setMaximumWidth(150);
     searchBtn.setText("Search Artist");
     
     barLayout->addWidget(&previousSong);
     barLayout->addWidget(&togglePlay);
     barLayout->addWidget(&nextSong);
     barLayout->addWidget(&currentSong);
+    barLayout->addStretch();
     barLayout->addWidget(&searchInput);
     barLayout->addWidget(&searchBtn);
     //connectBox.setFlat(true);
@@ -52,6 +57,8 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     bottomLayout->addWidget(&connectionStatusLabel);
     bottomBox.setFlat(true);
     bottomBox.setLayout(bottomLayout);
+    connect(&connectWSBtn, SIGNAL(clicked()), this, SLOT(slot_connect()));
+
     
     layout->addWidget(&topBox);
     layout->addWidget(&plainText);
@@ -111,4 +118,13 @@ void MainWindow::update_label_text(QString qText) {
 
 void MainWindow::set_current_song(QString qText) {
     currentSong.setText(qText);
+}
+
+void MainWindow::slot_connect() {
+    bool result = settingsWindow.connect_ws();
+    if(result == true) {
+        connectionStatusLabel.setText("Connected");
+    } else {
+        connectionStatusLabel.setText("Connection failed");
+    }
 }
