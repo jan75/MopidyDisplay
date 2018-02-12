@@ -53,25 +53,39 @@ void MessageHandler::send_json(json msgJson) {
 }
 
 void MessageHandler::scan_for_file(std::string path_file) {
-    //std::cout << path_file << std::endl;
-    
     QString base_dir("/home/jan/mnt/Musik/");
+    QByteArray qByteArray_base_dir = QUrl::toPercentEncoding(base_dir);
     
     path_file = path_file.erase(0, 12);
-    QString q_path_file = QString::fromStdString(path_file);
-        
-    //q_path_file = base_dir_encoded + q_path_file;
-    //std::cout << q_path_file.toStdString() << std::endl;
+    QByteArray qByteArray_path_file = QByteArray::fromStdString(path_file);
+    qByteArray_base_dir.append(qByteArray_path_file);
     
-    /*
-    QFile qFile(qPath_file);
+    QUrl file_url = QUrl::fromPercentEncoding(qByteArray_base_dir);
     
-    if(qFile.exists() == true) {
-        std::cout << "exists!" << std::endl;
-    } else {
-        std::cout << "doesn't exist!" << std::endl;   
+    QDir dir(file_url.toString(QUrl::None));
+    
+    // Built file path and created QDir object which points there 
+    // Moving one level up and checking if Cover.jpg, Cover.png, cover.jpg, cover.png, Front.jpg, Front.png, front.jpg, front.png exists
+    std::vector<std::string> cover_names = {"Cover.jpg", "Cover.png", "cover.jpg", "cover.png", "Front.jpg", "Front.png", "front.jpg", "front.png"};
+    dir.cdUp();
+    
+    // to do
+    // check if folder is CD01 or CD02 or CD1 / CD2 etc. and if the file is anywhere in the album dir (also to do: find the album dir...) to check if i can do it dynamically. Something with: dir.dirName() etc.
+    
+    bool found = false;
+    unsigned i;
+    QString cover_name;
+    for(i = 0; i < cover_names.size(); i++) {
+        cover_name = QString::fromStdString(cover_names[i]);
+        if(dir.exists(cover_name) == true) {
+            found = true;
+            break;
+        }
     }
     
-    std::cout << qFile.fileName().toStdString() << std::endl;
-    */
+    if(found == true) {
+        std::cout << "Found cover " << cover_names[i] << " under " << dir.path().toStdString() << std::endl;
+    } else {
+        std::cout << "No cover found in " << dir.path().toStdString() << std::endl;
+    }
 }
