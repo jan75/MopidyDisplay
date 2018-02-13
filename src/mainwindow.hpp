@@ -14,6 +14,7 @@
 #include <QTabWidget>
 #include <QPlainTextEdit>
 #include <QMetaType>
+#include <QPixmap>
 #include <unistd.h>
 
 #include "settings.hpp"
@@ -47,6 +48,13 @@ class MainWindow : public QWidget {
         QLabel currentSong;
         QLineEdit searchInput;
         QPushButton searchBtn;
+        
+        QGroupBox playBox;
+        QPixmap coverImage;
+        QLabel coverLabel;
+        QLabel title;
+        QLabel album;
+        QLabel artist;
         
         QGroupBox bottomBox;
         QLabel connectionStatusLabel;

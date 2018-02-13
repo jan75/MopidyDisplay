@@ -50,6 +50,26 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     topBox.setLayout(barLayout);
     connect(&searchBtn, SIGNAL(clicked()), this, SLOT(search_artist()));
     
+    // implement this for scaling and stuff: 
+    // https://stackoverflow.com/questions/8211982/qt-resizing-a-qlabel-containing-a-qpixmap-while-keeping-its-aspect-ratio
+    QVBoxLayout *playLayout = new QVBoxLayout;
+    coverImage.load("/home/jan/mnt/Musik/Faithless/2005 - Forever Faithless_ The Greatest Hits/Cover.jpg");
+    coverLabel.setScaledContents(true);
+    coverLabel.setMaximumWidth(450);
+    coverLabel.setMaximumHeight(450);
+    //coverLabel.setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    coverLabel.setAlignment(Qt::AlignHCenter);
+    coverLabel.setPixmap(coverImage);
+    title.setText("Insomnia");
+    album.setText("Forever Faithless - The Greatest Hits");
+    artist.setText("Faithless");
+    playLayout->addWidget(&coverLabel);
+    playLayout->addWidget(&title);
+    playLayout->addWidget(&album);
+    playLayout->addWidget(&artist);
+    playBox.setFlat(true);
+    playBox.setLayout(playLayout);
+    
     QHBoxLayout *bottomLayout = new QHBoxLayout;
     connectWSBtn.setText("Connect");
     connectionStatusLabel.setText("Not connected");
@@ -61,6 +81,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 
     
     layout->addWidget(&topBox);
+    layout->addWidget(&playBox);
     layout->addWidget(&plainText);
     //layout->addWidget(&label);
     layout->addWidget(&bottomBox);
