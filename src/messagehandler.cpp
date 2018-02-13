@@ -30,7 +30,7 @@ void MessageHandler::handle_event(json msgJson) {
     std::string eventStr = msgJson["event"];
     if(eventStr == "track_playback_started") {
         std::string uri = msgJson["tl_track"]["track"]["uri"];
-        scan_for_file(uri);
+        search_local_coverfile(uri);
         
         std::string trackNameStr = msgJson["tl_track"]["track"]["name"];
         QString qText = QString::fromStdString(trackNameStr);
@@ -52,7 +52,7 @@ void MessageHandler::send_json(json msgJson) {
     auto x = msgJson["tl_track"];
 }
 
-void MessageHandler::scan_for_file(std::string path_file) {
+QString MessageHandler::search_local_coverfile(std::string path_file) {
     QString base_dir("/home/jan/mnt/Musik/");
     QByteArray qByteArray_base_dir = QUrl::toPercentEncoding(base_dir);
     
@@ -69,8 +69,8 @@ void MessageHandler::scan_for_file(std::string path_file) {
     std::vector<std::string> cover_names = {"Cover.jpg", "Cover.png", "cover.jpg", "cover.png", "Front.jpg", "Front.png", "front.jpg", "front.png"};
     dir.cdUp();
     
-    // to do
-    // check if folder is CD01 or CD02 or CD1 / CD2 etc. and if the file is anywhere in the album dir (also to do: find the album dir...) to check if i can do it dynamically. Something with: dir.dirName() etc.
+    // to do:
+    // check if folder is CD01 or CD02 or CD1 / CD2 etc. and if the file is anywhere in the album dir (also to do: find the album dir...) to check if i can do it dynamically. Something with: dir.dirName() etc. 
     
     bool found = false;
     unsigned i;
@@ -84,8 +84,14 @@ void MessageHandler::scan_for_file(std::string path_file) {
     }
     
     if(found == true) {
-        std::cout << "Found cover " << cover_names[i] << " under " << dir.path().toStdString() << std::endl;
+        QString cover_name = QString::fromStdString(cover_names[i]);
+        QDir dir_complete = QDir::cleanPath(dir.path() + QDir::separator() + cover_name);
+        std::cout << "Found " << dir_complete.path().toStdString() << std::endl;
+        return dir_complete.path();
+        //return QDir::cleanPath(dir + QDir::separator() + cover_name);
     } else {
+        QString empty_string = QString::fromStdString("");
         std::cout << "No cover found in " << dir.path().toStdString() << std::endl;
+        return empty_string;
     }
 }

@@ -22,7 +22,7 @@ class MessageHandler : public QObject {
         void handle_event(nlohmann::json msgJson);
         void send_json(nlohmann::json msgJson);
         
-        void scan_for_file(std::string path_file);
+        QString search_local_coverfile(std::string path_file);
     
     public:
         MessageHandler(QObject *parent = 0);
