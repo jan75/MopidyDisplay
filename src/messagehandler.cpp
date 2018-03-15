@@ -32,9 +32,11 @@ void MessageHandler::handle_event(json msgJson) {
         std::string uri = msgJson["tl_track"]["track"]["uri"];
         search_local_coverfile(uri);
         
-        std::string trackNameStr = msgJson["tl_track"]["track"]["name"];
-        QString qText = QString::fromStdString(trackNameStr);
-        emit track_change(qText);
+        std::string title = msgJson["tl_track"]["track"]["name"];
+        std::string album = msgJson["tl_track"]["track"]["name"];
+        std::string artist = msgJson["tl_track"]["track"]["name"];
+        Track *track = new Track(title, album, artist);
+        emit track_change(track);
     }
 }
 

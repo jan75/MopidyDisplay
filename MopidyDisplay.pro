@@ -18,7 +18,9 @@ INCLUDEPATH += "lib/easywsclient/"
 INCLUDEPATH += "lib/json/"
 
 SOURCES += src/*.cpp
+SOURCES += src/models/*.cpp
 SOURCES += lib/easywsclient/easywsclient.cpp
 
 HEADERS += src/*.hpp
+HEADERS += src/models/*.hpp
 HEADRES += lib/easywsclient/easywsclient.hpp

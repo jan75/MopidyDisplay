@@ -17,6 +17,7 @@
 #include <QPixmap>
 #include <unistd.h>
 
+#include "models/track.hpp"
 #include "settings.hpp"
 #include "ws_client.hpp"
 #include <json.hpp>
@@ -45,7 +46,6 @@ class MainWindow : public QWidget {
         QPushButton previousSong;
         QPushButton togglePlay;
         QPushButton nextSong;
-        QLabel currentSong;
         QLineEdit searchInput;
         QPushButton searchBtn;
         
@@ -70,7 +70,7 @@ class MainWindow : public QWidget {
         void slot_connect();
         
     public slots:
-        void set_current_song(QString qText);
+        void set_current_song(Track *track);
         void update_label_text(QString qText);
         
 };

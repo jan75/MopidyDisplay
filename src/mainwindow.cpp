@@ -42,13 +42,13 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     barLayout->addWidget(&previousSong);
     barLayout->addWidget(&togglePlay);
     barLayout->addWidget(&nextSong);
-    barLayout->addWidget(&currentSong);
+    barLayout->addWidget(&title);
     barLayout->addStretch();
     barLayout->addWidget(&searchInput);
     barLayout->addWidget(&searchBtn);
     //connectBox.setFlat(true);
     topBox.setLayout(barLayout);
-    connect(&searchBtn, SIGNAL(clicked()), this, SLOT(search_artist()));
+    connect(&searchBtn, SIGNAL(clicked()), this, SLOT(search_artist()));    
     
     // implement this for scaling and stuff: 
     // https://stackoverflow.com/questions/8211982/qt-resizing-a-qlabel-containing-a-qpixmap-while-keeping-its-aspect-ratio
@@ -60,9 +60,9 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     //coverLabel.setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
     coverLabel.setAlignment(Qt::AlignHCenter);
     coverLabel.setPixmap(coverImage);
-    title.setText("Insomnia");
-    album.setText("Forever Faithless - The Greatest Hits");
-    artist.setText("Faithless");
+    title.setText("<title>");
+    album.setText("<album>");
+    artist.setText("<artist>");
     playLayout->addWidget(&coverLabel);
     playLayout->addWidget(&title);
     playLayout->addWidget(&album);
@@ -78,12 +78,10 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     bottomBox.setFlat(true);
     bottomBox.setLayout(bottomLayout);
     connect(&connectWSBtn, SIGNAL(clicked()), this, SLOT(slot_connect()));
-
     
     layout->addWidget(&topBox);
     layout->addWidget(&playBox);
     layout->addWidget(&plainText);
-    //layout->addWidget(&label);
     layout->addWidget(&bottomBox);
     setLayout(layout);
 };
@@ -137,8 +135,9 @@ void MainWindow::update_label_text(QString qText) {
     //label.setText(qText);
 };
 
-void MainWindow::set_current_song(QString qText) {
-    currentSong.setText(qText);
+void MainWindow::set_current_song(Track *track) {
+    //std::cout << "Changing track to " << track->get_title().toStdString() << std::endl;
+    //title.setText(track->get_title());
 }
 
 void MainWindow::slot_connect() {

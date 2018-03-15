@@ -9,6 +9,7 @@
 
 #include "mainwindow.hpp"
 #include "ws_client.hpp"
+#include "models/track.hpp"
 #include <json.hpp>
 
 class MessageHandler : public QObject {
@@ -32,7 +33,7 @@ class MessageHandler : public QObject {
         void handle_message(QString msg);
         
     signals:
-        void track_change(QString msg);
+        void track_change(Track *track);
         
 };
 
