@@ -29,13 +29,18 @@ void MessageHandler::handle_event(json msgJson) {
     //std::cout << "handle event" << std::endl;
     std::string eventStr = msgJson["event"];
     if(eventStr == "track_playback_started") {
-        std::string uri = msgJson["tl_track"]["track"]["uri"];
-        search_local_coverfile(uri);
-        
         std::string title = msgJson["tl_track"]["track"]["name"];
-        std::string album = msgJson["tl_track"]["track"]["name"];
-        std::string artist = msgJson["tl_track"]["track"]["name"];
-        Track *track = new Track(title, album, artist);
+        std::string album = msgJson["tl_track"]["track"]["album"]["name"];
+        std::string artist = msgJson["tl_track"]["track"]["album"]["artists"][0]["name"];
+        
+        std::shared_ptr<Track> track(new Track(title, album, artist));
+        
+        std::string uri = msgJson["tl_track"]["track"]["uri"];
+        QString cover_path = search_local_coverfile(uri);
+        if(cover_path != "") {
+            track->set_cover_path(cover_path);
+        }
+    
         emit track_change(track);
     }
 }

@@ -5,6 +5,7 @@
 #include <QMetaType>
 #include <QDir>
 #include <QUrl>
+#include <memory>
 #include <unistd.h>
 
 #include "mainwindow.hpp"
@@ -33,7 +34,7 @@ class MessageHandler : public QObject {
         void handle_message(QString msg);
         
     signals:
-        void track_change(Track *track);
+        void track_change(std::shared_ptr<Track> track);
         
 };
 

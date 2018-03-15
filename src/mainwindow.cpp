@@ -135,9 +135,18 @@ void MainWindow::update_label_text(QString qText) {
     //label.setText(qText);
 };
 
-void MainWindow::set_current_song(Track *track) {
-    //std::cout << "Changing track to " << track->get_title().toStdString() << std::endl;
-    //title.setText(track->get_title());
+void MainWindow::set_current_song(std::shared_ptr<Track> track) {
+    this->track = track;
+    std::cout << "Changing track to " << track->get_title().toStdString() << std::endl;
+    title.setText(track->get_title());
+    album.setText(track->get_album());
+    artist.setText(track->get_artist());
+    if(track->has_cover_path() == true) {
+        std::cout << "setting cover path to " << track->get_cover_path().toStdString() << std::endl;
+        coverImage.load(track->get_cover_path());
+        coverLabel.setPixmap(coverImage);
+    }
+    //coverImage.load("/home/jan/mnt/Musik/Faithless/2005 - Forever Faithless_ The Greatest Hits/Cover.jpg");
 }
 
 void MainWindow::slot_connect() {

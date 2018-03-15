@@ -15,6 +15,7 @@
 #include <QPlainTextEdit>
 #include <QMetaType>
 #include <QPixmap>
+#include <memory>
 #include <unistd.h>
 
 #include "models/track.hpp"
@@ -60,6 +61,8 @@ class MainWindow : public QWidget {
         QLabel connectionStatusLabel;
         QPushButton connectWSBtn;
         
+        std::shared_ptr<Track> track;
+        
     protected:
         void closeEvent(QCloseEvent*);
     
@@ -70,7 +73,7 @@ class MainWindow : public QWidget {
         void slot_connect();
         
     public slots:
-        void set_current_song(Track *track);
+        void set_current_song(std::shared_ptr<Track> track);
         void update_label_text(QString qText);
         
 };
