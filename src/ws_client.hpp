@@ -5,13 +5,18 @@
 #include <memory>
 #include <iostream>
 #include <thread>
-#include <unistd.h>
 #include <functional>
 #include <QObject>
 #include <QMetaType>
 
 #include <easywsclient.hpp>
 //#include "mainwindow.hpp"
+
+#ifdef WIN32
+    #include <io.h>
+#else
+    #include <unistd.h>
+#endif
 
 class MainWindow;
 

@@ -16,12 +16,17 @@
 #include <QMetaType>
 #include <QPixmap>
 #include <memory>
-#include <unistd.h>
 
 #include "models/track.hpp"
 #include "settings.hpp"
 #include "ws_client.hpp"
 #include <json.hpp>
+
+#ifdef WIN32
+    #include <io.h>
+#else
+    #include <unistd.h>
+#endif
 
 class MainWindow : public QWidget {
     Q_OBJECT

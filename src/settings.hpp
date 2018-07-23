@@ -8,10 +8,15 @@
 #include <QLineEdit>
 #include <QGroupBox>
 #include <QTabWidget>
-#include <unistd.h>
 
 #include "ws_client.hpp"
 #include <json.hpp>
+
+#ifdef WIN32
+    #include <io.h>
+#else
+    #include <unistd.h>
+#endif
 
 class SettingsWindow : public QTabWidget {
     Q_OBJECT

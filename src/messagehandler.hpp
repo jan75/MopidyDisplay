@@ -6,12 +6,17 @@
 #include <QDir>
 #include <QUrl>
 #include <memory>
-#include <unistd.h>
 
 #include "mainwindow.hpp"
 #include "ws_client.hpp"
 #include "models/track.hpp"
 #include <json.hpp>
+
+#ifdef WIN32
+    #include <io.h>
+#else
+    #include <unistd.h>
+#endif
 
 class MessageHandler : public QObject {
     Q_OBJECT
