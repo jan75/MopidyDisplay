@@ -8,6 +8,8 @@
 #include <functional>
 #include <QObject>
 #include <QMetaType>
+#include <QReadWriteLock>
+#include <QQueue>
 
 #include <easywsclient.hpp>
 //#include "mainwindow.hpp"
@@ -24,6 +26,8 @@ class WebSocketClient : public QObject {
     Q_OBJECT
     
     private:
+        QQueue<std::string> message_send_queue;
+        QReadWriteLock lock;
         easywsclient::WebSocket::pointer ws;
         bool connected;
     

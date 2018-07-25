@@ -33,8 +33,17 @@ bool WebSocketClient::get_connected() {
 
 void WebSocketClient::poll_ws() {
     WebSocket::pointer wsp = &*ws;
-    while(true) {
-        ws->poll(0);        
+    while(true) {   
+        ws->poll(0);
+        
+        lock.lockForRead();
+        if(message_send_queue.isEmpty() != true) {
+            std::string message = message_send_queue.dequeue();
+            std::cout << message << std::endl;
+            ws->send(message);
+        }
+        lock.unlock();
+        
         ws->dispatch([this, wsp](std::string msg) {
                 QString qMsg = QString::fromStdString(msg);
                 emit dispatch_message(qMsg);
@@ -43,5 +52,8 @@ void WebSocketClient::poll_ws() {
 }
 
 void WebSocketClient::send_ws(std::string message) {
-    ws->send(message);
+    lock.lockForWrite();
+    message_send_queue.enqueue(message);
+    lock.unlock();
+    //ws->send(message);
 }
