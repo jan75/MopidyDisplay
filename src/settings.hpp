@@ -23,9 +23,7 @@ class SettingsWindow : public QTabWidget {
     
     public:
         SettingsWindow(QTabWidget *parent = 0);
-        
-        bool connect_ws();
-        
+                
         void set_wsc(WebSocketClient *wsc);
         
     private:

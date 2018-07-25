@@ -33,10 +33,9 @@ class WebSocketClient : public QObject {
     
 	public:
         WebSocketClient();
-        
-        void poll_ws();
         bool connect_ws(std::string url);
-        
+        void poll_ws();
+
         bool get_connected();
         easywsclient::WebSocket::pointer get_ws();
         
@@ -45,6 +44,7 @@ class WebSocketClient : public QObject {
         
     public slots:
         void send_ws(std::string message);
+        
 };
 
 #endif

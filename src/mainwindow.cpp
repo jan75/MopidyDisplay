@@ -53,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     // implement this for scaling and stuff: 
     // https://stackoverflow.com/questions/8211982/qt-resizing-a-qlabel-containing-a-qpixmap-while-keeping-its-aspect-ratio
     QVBoxLayout *playLayout = new QVBoxLayout;
-    coverImage.load("/home/jan/mnt/Musik/Faithless/2005 - Forever Faithless_ The Greatest Hits/Cover.jpg");
+    coverImage.load("/home/jan/git/MopidyDisplay/media/images/placeholder_small.jpg");
     coverLabel.setScaledContents(true);
     coverLabel.setMaximumWidth(450);
     coverLabel.setMaximumHeight(450);
@@ -146,11 +146,16 @@ void MainWindow::set_current_song(std::shared_ptr<Track> track) {
         coverImage.load(track->get_cover_path());
         coverLabel.setPixmap(coverImage);
     }
-    //coverImage.load("/home/jan/mnt/Musik/Faithless/2005 - Forever Faithless_ The Greatest Hits/Cover.jpg");
 }
 
 void MainWindow::slot_connect() {
-    bool result = settingsWindow.connect_ws();
+    // ws://localhost:6680/mopidy/ws
+    if(wsc->get_connected() == true) {
+        connectionStatusLabel.setText("Already connected...");
+        return;
+    }
+    
+    bool result = wsc->connect_ws("ws://localhost:6680/mopidy/ws");
     if(result == true) {
         connectionStatusLabel.setText("Connected");
     } else {

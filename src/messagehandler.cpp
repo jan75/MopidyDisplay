@@ -37,9 +37,7 @@ void MessageHandler::handle_event(json msgJson) {
         
         std::string uri = msgJson["tl_track"]["track"]["uri"];
         QString cover_path = search_local_coverfile(uri);
-        if(cover_path != "") {
-            track->set_cover_path(cover_path);
-        }
+        track->set_cover_path(cover_path);
     
         emit track_change(track);
     }
@@ -60,10 +58,19 @@ void MessageHandler::send_json(json msgJson) {
 }
 
 QString MessageHandler::search_local_coverfile(std::string path_file) {
-    QString base_dir("/home/jan/mnt/Musik/");
+    bool found = false;
+    
+    QString base_dir("/home/jan/data/Musik/");
     QByteArray qByteArray_base_dir = QUrl::toPercentEncoding(base_dir);
     
-    path_file = path_file.erase(0, 12);
+    if(path_file.rfind("local:", 0) == 0) {
+        path_file = path_file.erase(0, 12);
+    } else {
+        std::cout << "Not local media: " << path_file << std::endl;
+        QString placeholder = QString("/home/jan/git/MopidyDisplay/media/images/placeholder_small.jpg");
+        return placeholder;
+    }
+    
     QByteArray qByteArray_path_file = QByteArray::fromStdString(path_file);
     qByteArray_base_dir.append(qByteArray_path_file);
     
@@ -79,7 +86,6 @@ QString MessageHandler::search_local_coverfile(std::string path_file) {
     // to do:
     // check if folder is CD01 or CD02 or CD1 / CD2 etc. and if the file is anywhere in the album dir (also to do: find the album dir...) to check if i can do it dynamically. Something with: dir.dirName() etc. 
     
-    bool found = false;
     unsigned i;
     QString cover_name;
     for(i = 0; i < cover_names.size(); i++) {
@@ -97,8 +103,8 @@ QString MessageHandler::search_local_coverfile(std::string path_file) {
         return dir_complete.path();
         //return QDir::cleanPath(dir + QDir::separator() + cover_name);
     } else {
-        QString empty_string = QString::fromStdString("");
         std::cout << "No cover found in " << dir.path().toStdString() << std::endl;
-        return empty_string;
+        QString placeholder = QString("/home/jan/git/MopidyDisplay/media/images/placeholder_small.jpg");
+        return placeholder;
     }
 }

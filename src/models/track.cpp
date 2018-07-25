@@ -6,7 +6,6 @@ Track::Track(QString title, QString album, QString artist) {
     this->album = album;
     this->artist = artist;
     this->cover_path_exists = false;
-    std::cout << "created 'Track' object with QString params" << std::endl;
 }
 
 Track::Track(std::string title, std::string album, std::string artist) {
@@ -14,7 +13,6 @@ Track::Track(std::string title, std::string album, std::string artist) {
     this->album = QString::fromStdString(album);
     this->artist = QString::fromStdString(artist);
     this->cover_path_exists = false;
-    std::cout << "created 'Track' object with string params" << std::endl;
 }
 
 void Track::set_title(QString title) {

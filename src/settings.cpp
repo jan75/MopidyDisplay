@@ -24,6 +24,7 @@ void SettingsWindow::set_wsc(WebSocketClient *wscParam) {
     this->wsc = wscParam;
 }
 
+/*
 bool SettingsWindow::connect_ws() {
     QString url = inputWSAddress.text();
     std::string urlStr = url.toStdString();
@@ -35,3 +36,4 @@ bool SettingsWindow::connect_ws() {
     }
     return false;
 }
+*/

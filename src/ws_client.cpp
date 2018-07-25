@@ -17,10 +17,18 @@ bool WebSocketClient::connect_ws(std::string url) {
     ws = WebSocket::from_url(url);
     if(ws != NULL) {
         connected = true;
-        return true;
     } else {
         return false;
     }
+    
+    //&WebSocketClient::poll_ws, wsc
+    
+    if(connected != false) {
+        std::thread thread_poll(&WebSocketClient::poll_ws, this);
+        thread_poll.detach();
+        return true;
+    }
+    return false;
 }
 
 WebSocket::pointer WebSocketClient::get_ws() {
@@ -57,3 +65,12 @@ void WebSocketClient::send_ws(std::string message) {
     lock.unlock();
     //ws->send(message);
 }
+
+/*
+bool WebSocketClient::connect_ws() {
+    std::string urlStr = std::string("ws://localhost:6680/mopidy/ws");
+    bool result = connect_ws(urlStr);
+    
+    return false;
+}
+*/
