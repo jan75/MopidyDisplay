@@ -18,8 +18,7 @@
 #include <memory>
 
 #include "models/track.hpp"
-#include "settings.hpp"
-#include "ws_client.hpp"
+#include "messagehandler.hpp"
 #include <json.hpp>
 
 #ifdef WIN32
@@ -32,13 +31,12 @@ class MainWindow : public QWidget {
     Q_OBJECT
     
     public:
-        MainWindow(QWidget *parent = 0);
-        //void update_label_text(std::string text);
-        void set_wsc(WebSocketClient *wsc);
+        MainWindow(MessageHandler *messageHandler);
+        //void set_wsc(WebSocketClientQt *wsc);
+        QPushButton get_searchBtn();
         
     private:
-        WebSocketClient *wsc;
-        SettingsWindow settingsWindow;
+        MessageHandler *messageHandler;
         QLabel label;
         QPlainTextEdit plainText;
 		mutable QMutex mutex;
@@ -72,7 +70,6 @@ class MainWindow : public QWidget {
         void closeEvent(QCloseEvent*);
     
     private slots:
-        void show_settings();
         void quit_application();
         void search_artist();
         void slot_connect();

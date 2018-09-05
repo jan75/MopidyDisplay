@@ -5,22 +5,28 @@
 TEMPLATE = app
 TARGET = MopidyDisplay
 
-DESTDIR = "build"
+#DESTDIR = "build"
 
 CONFIG += qt
 CONFIG += debug
 CONFIG += c++11
 
 QT += widgets
+QT += websockets
+
+win32: LIBS += -lws2_32
 
 INCLUDEPATH += .
-INCLUDEPATH += "lib/easywsclient/"
-INCLUDEPATH += "lib/json/"
+INCLUDEPATH += lib/json/
 
-SOURCES += src/*.cpp
-SOURCES += src/models/*.cpp
-SOURCES += lib/easywsclient/easywsclient.cpp
+HEADERS += lib/json/json.hpp
+HEADERS += src/mainwindow.hpp
+HEADERS += src/messagehandler.hpp
+HEADERS += src/ws_client_qt.hpp
+HEADERS += src/models/track.hpp
 
-HEADERS += src/*.hpp
-HEADERS += src/models/*.hpp
-HEADRES += lib/easywsclient/easywsclient.hpp
+SOURCES += src/main.cpp
+SOURCES += src/mainwindow.cpp
+SOURCES += src/messagehandler.cpp
+SOURCES += src/ws_client_qt.cpp
+SOURCES += src/models/track.cpp

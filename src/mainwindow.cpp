@@ -3,16 +3,14 @@
 
 using nlohmann::json;
 
-MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
+MainWindow::MainWindow(MessageHandler *messageHandler) {
+    this->messageHandler = messageHandler;
     plainText.setLineWrapMode(QPlainTextEdit::WidgetWidth);
     plainText.setReadOnly(true);
 
     QVBoxLayout *layout = new QVBoxLayout;
     
     mainMenu.setTitle("Action");
-    
-    settingsAction.setText("Settings");
-    mainMenu.addAction(&settingsAction);
     
     quitAction.setText("Quit");
     mainMenu.addAction(&quitAction);
@@ -25,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     menuBar.addMenu(&aboutMenu);
     
     layout->setMenuBar(&menuBar);
-    connect(&settingsAction, SIGNAL(triggered()), this, SLOT(show_settings()));
     connect(&quitAction, SIGNAL(triggered()), this, SLOT(quit_application()));
     
     QHBoxLayout *barLayout = new QHBoxLayout;
@@ -77,7 +74,9 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     bottomLayout->addWidget(&connectionStatusLabel);
     bottomBox.setFlat(true);
     bottomBox.setLayout(bottomLayout);
-    connect(&connectWSBtn, SIGNAL(clicked()), this, SLOT(slot_connect()));
+
+    QString url = QString("ws://htpc-jan:6680/mopidy/ws");
+    connect(&connectWSBtn, SIGNAL(clicked()), messageHandler, SLOT(connect_ws()));
     
     layout->addWidget(&topBox);
     layout->addWidget(&playBox);
@@ -90,15 +89,12 @@ void MainWindow::closeEvent(QCloseEvent*) {
     quit_application();
 }
 
-void MainWindow::show_settings() {
-    settingsWindow.show();
-}
-
 void MainWindow::quit_application() {
     qApp->quit();
 }
 
 void MainWindow::search_artist() {
+    /*
     bool connected = wsc->get_connected();
     if(connected != false) {
         QString query = searchInput.text();
@@ -116,11 +112,7 @@ void MainWindow::search_artist() {
         //std::cout << queryJson.dump(4) << std::endl;
         wsc->send_ws(queryJson.dump());
     }
-}
-
-void MainWindow::set_wsc(WebSocketClient *wscParam) {
-    this->wsc = wscParam;
-    settingsWindow.set_wsc(wscParam);
+    */
 }
 
 void MainWindow::update_label_text(QString qText) {
@@ -150,12 +142,18 @@ void MainWindow::set_current_song(std::shared_ptr<Track> track) {
 
 void MainWindow::slot_connect() {
     // ws://localhost:6680/mopidy/ws
+    /*
     if(wsc->get_connected() == true) {
         connectionStatusLabel.setText("Already connected...");
         return;
     }
+    */
     
-    bool result = wsc->connect_ws("ws://localhost:6680/mopidy/ws");
+    //bool result = wsc->connect_ws("ws://htpc-jan:6680/mopidy/ws");
+    //bool result = wsc->connect_ws("ws://htpc-jan:6680/mopidy/ws");
+
+    //std::cout << result << std::endl;
+    bool result = false;
     if(result == true) {
         connectionStatusLabel.setText("Connected");
     } else {

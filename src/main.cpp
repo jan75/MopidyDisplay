@@ -6,7 +6,7 @@
 //#include <unistd.h>
 
 #include "mainwindow.hpp"
-#include "ws_client.hpp"
+#include "ws_client_qt.hpp"
 #include "messagehandler.hpp"
 #include <json.hpp>
 
@@ -16,21 +16,15 @@
     #include <unistd.h>
 #endif
 
-
-
-using easywsclient::WebSocket;
 using nlohmann::json;
 
 int main(int argv, char **args) {
     QApplication application(argv, args);
     
-    MainWindow mainWindow;
-    
-    WebSocketClient wsc;
-    mainWindow.set_wsc(&wsc);
-    
-    MessageHandler messageHandler(&mainWindow, &wsc);
-    
+    WebSocketClientQt wsc;
+    MessageHandler messageHandler(&wsc);
+    MainWindow mainWindow(&messageHandler);
+
     mainWindow.show();
 	return application.exec();
 }

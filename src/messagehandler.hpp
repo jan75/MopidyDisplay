@@ -7,8 +7,8 @@
 #include <QUrl>
 #include <memory>
 
-#include "mainwindow.hpp"
-#include "ws_client.hpp"
+//#include "mainwindow.hpp"
+#include "ws_client_qt.hpp"
 #include "models/track.hpp"
 #include <json.hpp>
 
@@ -22,8 +22,7 @@ class MessageHandler : public QObject {
     Q_OBJECT
     
     private:
-		MainWindow *mainWindow;
-		WebSocketClient *wsc;
+        WebSocketClientQt *wsc;
         
         nlohmann::json create_json_object(std::string msg);
         void handle_event(nlohmann::json msgJson);
@@ -32,11 +31,11 @@ class MessageHandler : public QObject {
         QString search_local_coverfile(std::string path_file);
     
     public:
-        MessageHandler(QObject *parent = 0);
-        MessageHandler(MainWindow *mainWindow, WebSocketClient *wsc, QObject *parent = 0);
-        
-    private slots:
+        MessageHandler(WebSocketClientQt *wsc);
+
+    public slots:
         void handle_message(QString msg);
+        void connect_ws();
         
     signals:
         void track_change(std::shared_ptr<Track> track);

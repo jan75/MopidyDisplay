@@ -1,6 +1,6 @@
-// ws_client.hpp
-#ifndef H_WS_CLIENT
-#define H_WS_CLIENT
+// ws_client_qt.hpp
+#ifndef H_WS_CLIENT_QT
+#define H_WS_CLIENT_QT
 
 #include <memory>
 #include <iostream>
@@ -10,8 +10,8 @@
 #include <QMetaType>
 #include <QReadWriteLock>
 #include <QQueue>
-
-#include <easywsclient.hpp>
+#include <QtWebSockets/QtWebSockets>
+#include <QWebSocket>
 //#include "mainwindow.hpp"
 
 #ifdef WIN32
@@ -22,28 +22,31 @@
 
 class MainWindow;
 
-class WebSocketClient : public QObject {
+class WebSocketClientQt : public QObject {
     Q_OBJECT
     
     private:
+        QWebSocket qWebSocket;
+        QUrl url;
         QQueue<std::string> message_send_queue;
         QReadWriteLock lock;
-        easywsclient::WebSocket::pointer ws;
         bool connected;
     
 	public:
-        WebSocketClient();
-        bool connect_ws(std::string url);
-        void poll_ws();
-
-        bool get_connected();
-        easywsclient::WebSocket::pointer get_ws();
+        WebSocketClientQt();
         
     signals:
+        void connect_ws(QUrl url);
         void dispatch_message(QString msg);
         
     public slots:
-        void send_ws(std::string message);
+        void connect_to_ws(QString qStrUrl);
+        void connected_state();
+        void disconnected_state();
+        void changed_state(QAbstractSocket::SocketState);
+        void text_msg_received(QString);
+        void send_msg(QString);
+
         
 };
 
