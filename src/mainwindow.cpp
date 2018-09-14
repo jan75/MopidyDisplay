@@ -4,27 +4,24 @@
 using nlohmann::json;
 
 MainWindow::MainWindow(MessageHandler *messageHandler) {
+    /* === OBJECTS === */
     this->messageHandler = messageHandler;
-    plainText.setLineWrapMode(QPlainTextEdit::WidgetWidth);
-    plainText.setReadOnly(true);
 
+    /* === UI ELEMENTS === */
     QVBoxLayout *layout = new QVBoxLayout;
-    
+
+    // MENUBAR
     mainMenu.setTitle("Action");
-    
     quitAction.setText("Quit");
     mainMenu.addAction(&quitAction);
-    
     menuBar.addMenu(&mainMenu);
-    
     aboutMenu.setTitle("Help");
     aboutMenu.addAction("Help");
     aboutMenu.addAction("About");
     menuBar.addMenu(&aboutMenu);
-    
     layout->setMenuBar(&menuBar);
-    connect(&quitAction, SIGNAL(triggered()), this, SLOT(quit_application()));
-    
+
+    // CONTROL BAR
     QHBoxLayout *barLayout = new QHBoxLayout;
     previousSong.setText("<");
     previousSong.setMaximumWidth(20);
@@ -32,10 +29,8 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
     togglePlay.setMaximumWidth(60);
     nextSong.setText(">");
     nextSong.setMaximumWidth(20);
-    
     searchInput.setMaximumWidth(150);
     searchBtn.setText("Search Artist");
-    
     barLayout->addWidget(&previousSong);
     barLayout->addWidget(&togglePlay);
     barLayout->addWidget(&nextSong);
@@ -43,14 +38,11 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
     barLayout->addStretch();
     barLayout->addWidget(&searchInput);
     barLayout->addWidget(&searchBtn);
-    //connectBox.setFlat(true);
     topBox.setLayout(barLayout);
-    connect(&searchBtn, SIGNAL(clicked()), this, SLOT(search_artist()));    
-    
-    // implement this for scaling and stuff: 
-    // https://stackoverflow.com/questions/8211982/qt-resizing-a-qlabel-containing-a-qpixmap-while-keeping-its-aspect-ratio
+
+    // PLAY LAYOUT
     QVBoxLayout *playLayout = new QVBoxLayout;
-    coverImage.load("/home/jan/git/MopidyDisplay/media/images/placeholder_small.jpg");
+    coverImage.load("C:/Users/Jan Ackermann/git/MopidyDisplay/media/images/placeholder_small.jpg");
     coverLabel.setScaledContents(true);
     coverLabel.setMaximumWidth(450);
     coverLabel.setMaximumHeight(450);
@@ -60,13 +52,18 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
     title.setText("<title>");
     album.setText("<album>");
     artist.setText("<artist>");
-    playLayout->addWidget(&coverLabel);
+    playLayout->addWidget(&coverLabel); // https://stackoverflow.com/questions/8211982/qt-resizing-a-qlabel-containing-a-qpixmap-while-keeping-its-aspect-ratio
     playLayout->addWidget(&title);
     playLayout->addWidget(&album);
     playLayout->addWidget(&artist);
     playBox.setFlat(true);
     playBox.setLayout(playLayout);
-    
+
+    // TEXT AREA
+    plainText.setLineWrapMode(QPlainTextEdit::WidgetWidth);
+    plainText.setReadOnly(true);
+
+    // FOOTER
     QHBoxLayout *bottomLayout = new QHBoxLayout;
     connectWSBtn.setText("Connect");
     connectionStatusLabel.setText("Not connected");
@@ -75,14 +72,18 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
     bottomBox.setFlat(true);
     bottomBox.setLayout(bottomLayout);
 
-    QString url = QString("ws://htpc-jan:6680/mopidy/ws");
-    connect(&connectWSBtn, SIGNAL(clicked()), messageHandler, SLOT(connect_ws()));
-    
+    // COMPLETE LAYOUT
     layout->addWidget(&topBox);
     layout->addWidget(&playBox);
     layout->addWidget(&plainText);
     layout->addWidget(&bottomBox);
     setLayout(layout);
+
+    /* === SIGNALS === */
+    connect(messageHandler, &MessageHandler::text_msg_received, this, &MainWindow::update_label_text);
+    connect(&quitAction, &QAction::triggered, this, &MainWindow::quit_application);
+    connect(&searchBtn, &QPushButton::clicked, this, &MainWindow::search_artist);
+    connect(&connectWSBtn, &QPushButton::clicked, messageHandler, &MessageHandler::connect_ws);
 };
 
 void MainWindow::closeEvent(QCloseEvent*) {
@@ -115,12 +116,9 @@ void MainWindow::search_artist() {
     */
 }
 
-void MainWindow::update_label_text(QString qText) {
-	QMutexLocker locker(&mutex);
-    
-    std::string textStr = qText.toStdString();
-    json json_test = json::parse(qText.toStdString());
-    QString qPrettyJson = QString::fromStdString(json_test.dump(4));
+void MainWindow::update_label_text(nlohmann::json msg) {
+    QString qPrettyJson = QString::fromStdString(msg.dump(2));
+    std::cout << msg << std::endl;
     
     plainText.clear();
     plainText.appendPlainText(qPrettyJson);
@@ -137,26 +135,5 @@ void MainWindow::set_current_song(std::shared_ptr<Track> track) {
         std::cout << "setting cover path to " << track->get_cover_path().toStdString() << std::endl;
         coverImage.load(track->get_cover_path());
         coverLabel.setPixmap(coverImage);
-    }
-}
-
-void MainWindow::slot_connect() {
-    // ws://localhost:6680/mopidy/ws
-    /*
-    if(wsc->get_connected() == true) {
-        connectionStatusLabel.setText("Already connected...");
-        return;
-    }
-    */
-    
-    //bool result = wsc->connect_ws("ws://htpc-jan:6680/mopidy/ws");
-    //bool result = wsc->connect_ws("ws://htpc-jan:6680/mopidy/ws");
-
-    //std::cout << result << std::endl;
-    bool result = false;
-    if(result == true) {
-        connectionStatusLabel.setText("Connected");
-    } else {
-        connectionStatusLabel.setText("Connection failed");
     }
 }

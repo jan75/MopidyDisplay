@@ -39,6 +39,8 @@ class MessageHandler : public QObject {
         
     signals:
         void track_change(std::shared_ptr<Track> track);
+        void text_msg_received(nlohmann::json msg);
+        void update_conn_label(QString msg);
         
 };
 

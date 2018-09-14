@@ -72,11 +72,10 @@ class MainWindow : public QWidget {
     private slots:
         void quit_application();
         void search_artist();
-        void slot_connect();
         
     public slots:
         void set_current_song(std::shared_ptr<Track> track);
-        void update_label_text(QString qText);
+        void update_label_text(nlohmann::json msg);
         
 };
 

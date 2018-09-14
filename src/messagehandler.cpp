@@ -6,34 +6,39 @@ using nlohmann::json;
 MessageHandler::MessageHandler(WebSocketClientQt *wsc) {
     this->wsc = wsc;
 
-    //QString url = QString("ws://htpc-jan:6680/mopidy/ws");
-    //connect_ws();
-
     connect(wsc, &WebSocketClientQt::dispatch_message, this, &MessageHandler::handle_message);
-    //connect(this, &MessageHandlerQt::track_change, mainWindow, &MainWindow::set_current_song);
-};
+}
 
 void MessageHandler::connect_ws() {
     QString url = QString("ws://htpc-jan:6680/mopidy/ws");
     wsc->connect_to_ws(url);
 }
 
+void MessageHandler::send_json(json msgJson) {
+    std::cout << msgJson << std::endl;
+    // "{'jsonrpc': '2.0', 'id': 1, 'method': 'core.playback.get_state'}"
+    QString msg = QString::fromStdString(msgJson.dump());
+    wsc->send_msg(msg);
+}
+
 void MessageHandler::handle_message(QString msg) {
     std::string msgStr = msg.toStdString();
     json msgJson = create_json_object(msgStr);
-    std::cout << msgJson.dump(2) << std::endl;
+    //std::cout << msgJson.dump(2) << std::endl;
+    emit text_msg_received(msgJson);
+
+    //std::cout << msgJson.dump(2) << std::endl;
     
-    /*
     if(msgJson.find("event") != msgJson.end()) {
         handle_event(msgJson);
     }
-    */
 }
 
-/*
 void MessageHandler::handle_event(json msgJson) {
     //std::cout << "handle event" << std::endl;
     std::string eventStr = msgJson["event"];
+
+    /*
     if(eventStr == "track_playback_started") {
         std::string title = msgJson["tl_track"]["track"]["name"];
         std::string album = msgJson["tl_track"]["track"]["album"]["name"];
@@ -47,8 +52,8 @@ void MessageHandler::handle_event(json msgJson) {
     
         emit track_change(track);
     }
+    */
 }
-*/
 
 json MessageHandler::create_json_object(std::string msg) {
     json msgJson;
@@ -58,11 +63,4 @@ json MessageHandler::create_json_object(std::string msg) {
         std::cerr << e.what() << std::endl;
     }
     return msgJson;
-}
-
-void MessageHandler::send_json(json msgJson) {
-    std::cout << msgJson << std::endl;
-    // "{'jsonrpc': '2.0', 'id': 1, 'method': 'core.playback.get_state'}"
-    QString msg = QString::fromStdString(msgJson.dump());
-    wsc->send_msg(msg);
 }
