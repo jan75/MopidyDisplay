@@ -21,6 +21,23 @@ void MessageHandler::send_json(json msgJson) {
     wsc->send_msg(msg);
 }
 
+void MessageHandler::search_artists(QString artist) {
+    std::cout << "Searching for artist" << artist.toStdString() << std::endl;
+
+    json queryJson;
+    queryJson = {
+        {"jsonrpc", "2.0"},
+        {"id", 1},
+        {"method", "core.library.find_exact"},
+        {"params", {
+            {"artist", "default"},
+        }}
+    };
+    queryJson["params"]["artist"] = artist.toStdString();
+
+    send_json(queryJson);
+}
+
 void MessageHandler::handle_message(QString msg) {
     std::string msgStr = msg.toStdString();
     json msgJson = create_json_object(msgStr);

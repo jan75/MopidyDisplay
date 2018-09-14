@@ -34,6 +34,7 @@ class MessageHandler : public QObject {
         MessageHandler(WebSocketClientQt *wsc);
 
     public slots:
+        void search_artists(QString artist);
         void handle_message(QString msg);
         void connect_ws();
         
