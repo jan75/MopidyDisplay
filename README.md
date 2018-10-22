@@ -5,6 +5,7 @@ I'm trying to learn QT and C++. In this project i try to write a usable client f
 
 ## Dependencies
 * QT5 toolkit (usually called qt5-base or similiar) 
+* QT5 websockets
 * qmake
 
 ## Make
@@ -12,3 +13,6 @@ I'm trying to learn QT and C++. In this project i try to write a usable client f
 * Switch to the main directory in the root of the unpacked sources
 * Create a platform specific makefile with: `qmake -makefile MopidyDisplay.pro`
 * Compile with: `make`
+
+## Platforms
+Builds tested on Linux (GCC, Clang) and Windows (MinGW)
