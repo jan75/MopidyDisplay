@@ -22,11 +22,11 @@
 
 class MainWindow;
 
-class WebSocketClientQt : public QObject {
+class WebSocketClientQt : public QWebSocket {
     Q_OBJECT
     
     private:
-        QWebSocket qWebSocket;
+        //QWebSocket qWebSocket;
         QUrl url;
         QQueue<std::string> message_send_queue;
         QReadWriteLock lock;
@@ -36,12 +36,10 @@ class WebSocketClientQt : public QObject {
         WebSocketClientQt();
         
     signals:
-        void connect_ws(QUrl url);
         void dispatch_message(QString msg);
         
     public slots:
         void connect_to_ws(QString qStrUrl);
-        void connected_state();
         void disconnected_state();
         void changed_state(QAbstractSocket::SocketState);
         void text_msg_received(QString);

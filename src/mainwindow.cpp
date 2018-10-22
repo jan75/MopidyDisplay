@@ -10,6 +10,12 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
     /* === UI ELEMENTS === */
     QVBoxLayout *layout = new QVBoxLayout;
 
+    /* === SETTINGS === */
+    QSettings settings("metasoft", "mopidydisplay");
+    settings.beginGroup("display");
+    QString img_path = settings.value("cover", "/home/jan/git/MopidyDisplay/media/images/placeholder_small.jpg").toString();
+    settings.endGroup();
+
     // MENUBAR
     mainMenu.setTitle("Action");
     quitAction.setText("Quit");
@@ -20,6 +26,7 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
     aboutMenu.addAction("About");
     menuBar.addMenu(&aboutMenu);
     layout->setMenuBar(&menuBar);
+
 
     // CONTROL BAR
     QHBoxLayout *barLayout = new QHBoxLayout;
@@ -40,24 +47,35 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
     barLayout->addWidget(&searchBtn);
     topBox.setLayout(barLayout);
 
+    // SEARCH LAYOUT
+    QVBoxLayout *playlistLayout = new QVBoxLayout;
+    playlistList.addItem("Hello World!");
+    playlistList.addItem("Hello World!");
+    playlistList.addItem("Hello World!");
+    playlistLayout->addWidget(&playlistList);
+
     // PLAY LAYOUT
     QVBoxLayout *playLayout = new QVBoxLayout;
-    coverImage.load("C:/Users/Jan Ackermann/git/MopidyDisplay/media/images/placeholder_small.jpg");
-    coverLabel.setScaledContents(true);
-    coverLabel.setMaximumWidth(450);
-    coverLabel.setMaximumHeight(450);
+    //coverImage.load(img_path);
+    //coverLabel.setScaledContents(true);
+    //coverLabel.setMaximumWidth(450);
+    //coverLabel.setMaximumHeight(450);
     //coverLabel.setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-    coverLabel.setAlignment(Qt::AlignHCenter);
-    coverLabel.setPixmap(coverImage);
+    //coverLabel.setAlignment(Qt::AlignHCenter);
+    //coverLabel.setPixmap(coverImage);
     title.setText("<title>");
     album.setText("<album>");
     artist.setText("<artist>");
-    playLayout->addWidget(&coverLabel); // https://stackoverflow.com/questions/8211982/qt-resizing-a-qlabel-containing-a-qpixmap-while-keeping-its-aspect-ratio
+    //playLayout->addWidget(&coverLabel); // https://stackoverflow.com/questions/8211982/qt-resizing-a-qlabel-containing-a-qpixmap-while-keeping-its-aspect-ratio
     playLayout->addWidget(&title);
     playLayout->addWidget(&album);
     playLayout->addWidget(&artist);
-    playBox.setFlat(true);
-    playBox.setLayout(playLayout);
+
+    // CONTENT LAYOUT
+    QHBoxLayout *contentLayout = new QHBoxLayout;
+    contentLayout->addItem(playLayout);
+    contentLayout->addItem(playlistLayout);
+    contentBox.setLayout(contentLayout);
 
     // TEXT AREA
     plainText.setLineWrapMode(QPlainTextEdit::WidgetWidth);
@@ -74,7 +92,7 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
 
     // COMPLETE LAYOUT
     layout->addWidget(&topBox);
-    layout->addWidget(&playBox);
+    layout->addWidget(&contentBox);
     layout->addWidget(&plainText);
     layout->addWidget(&bottomBox);
     setLayout(layout);
@@ -84,6 +102,8 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
     connect(&quitAction, &QAction::triggered, this, &MainWindow::quit_application);
     connect(&searchBtn, &QPushButton::clicked, this, &MainWindow::search_artist);
     connect(&connectWSBtn, &QPushButton::clicked, messageHandler, &MessageHandler::connect_ws);
+    connect(messageHandler, &MessageHandler::track_change, this, &MainWindow::set_current_song);
+    connect(messageHandler, &MessageHandler::playlist_change, this, &MainWindow::replace_playlist);
 };
 
 void MainWindow::closeEvent(QCloseEvent*) {
@@ -100,6 +120,7 @@ void MainWindow::search_artist() {
 }
 
 void MainWindow::update_label_text(nlohmann::json msg) {
+    //std::cout << "update_label_text" << std::endl;
     QString qPrettyJson = QString::fromStdString(msg.dump(2));
     std::cout << msg << std::endl;
     
@@ -114,9 +135,11 @@ void MainWindow::set_current_song(std::shared_ptr<Track> track) {
     title.setText(track->get_title());
     album.setText(track->get_album());
     artist.setText(track->get_artist());
-    if(track->has_cover_path() == true) {
-        std::cout << "setting cover path to " << track->get_cover_path().toStdString() << std::endl;
-        coverImage.load(track->get_cover_path());
-        coverLabel.setPixmap(coverImage);
+}
+
+void MainWindow::replace_playlist(std::vector<Track> playlist) {
+    playlistList.clear();
+    for(Track track: playlist) {
+        playlistList.addItem(track.get_title());
     }
 }

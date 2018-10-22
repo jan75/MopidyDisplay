@@ -20,7 +20,12 @@ using nlohmann::json;
 
 int main(int argv, char **args) {
     QApplication application(argv, args);
-    
+
+    QSettings settings("metasoft", "mopidydisplay");
+    settings.beginGroup("mopidy");
+    settings.endGroup();
+
+
     WebSocketClientQt wsc;
     MessageHandler messageHandler(&wsc);
     MainWindow mainWindow(&messageHandler);

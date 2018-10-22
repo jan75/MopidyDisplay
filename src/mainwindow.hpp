@@ -6,6 +6,7 @@
 #include <QtWidgets>
 #include <QWidget>
 #include <QLineEdit>
+#include <QListWidget>
 #include <QGroupBox>
 #include <QAction>
 #include <QMutex>
@@ -53,27 +54,30 @@ class MainWindow : public QWidget {
         QLineEdit searchInput;
         QPushButton searchBtn;
         
-        QGroupBox playBox;
+        QGroupBox contentBox;
+
         QPixmap coverImage;
         QLabel coverLabel;
         QLabel title;
         QLabel album;
         QLabel artist;
-        
+
+        QListWidget playlistList;
+
         QGroupBox bottomBox;
         QLabel connectionStatusLabel;
         QPushButton connectWSBtn;
         
         std::shared_ptr<Track> track;
-        
+        std::vector<Track> playlist;
+
     protected:
         void closeEvent(QCloseEvent*);
     
     private slots:
         void quit_application();
         void search_artist();
-        
-    public slots:
+        void replace_playlist(std::vector<Track> playlist);
         void set_current_song(std::shared_ptr<Track> track);
         void update_label_text(nlohmann::json msg);
         

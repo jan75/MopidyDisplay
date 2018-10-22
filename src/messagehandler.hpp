@@ -5,7 +5,10 @@
 #include <QMetaType>
 #include <QDir>
 #include <QUrl>
+#include <QMutex>
+#include <QHash>
 #include <memory>
+#include <map>
 
 //#include "mainwindow.hpp"
 #include "ws_client_qt.hpp"
@@ -23,12 +26,16 @@ class MessageHandler : public QObject {
     
     private:
         WebSocketClientQt *wsc;
+        QHash<int, std::string> mapping_table;
+        int last_request_id = 0;
         
         nlohmann::json create_json_object(std::string msg);
         void handle_event(nlohmann::json msgJson);
         void send_json(nlohmann::json msgJson);
+        int get_id(std::string type);
+        std::string get_result_type(int id);
         
-        QString search_local_coverfile(std::string path_file);
+        void get_playlist();
     
     public:
         MessageHandler(WebSocketClientQt *wsc);
@@ -40,6 +47,7 @@ class MessageHandler : public QObject {
         
     signals:
         void track_change(std::shared_ptr<Track> track);
+        void playlist_change(std::vector<Track> playlist);
         void text_msg_received(nlohmann::json msg);
         void update_conn_label(QString msg);
         
