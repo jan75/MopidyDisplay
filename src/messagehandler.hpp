@@ -34,6 +34,7 @@ class MessageHandler : public QObject {
         void send_json(nlohmann::json msgJson);
         int get_id(std::string type);
         std::string get_result_type(int id);
+        void parse_search_results(nlohmann::json msgJson);
         
         void get_playlist();
     

@@ -47,6 +47,7 @@ void MessageHandler::handle_message(QString msg) {
 
         if(type == "search") {
             std::cout << "search result received, id: " << id << std::endl;
+            parse_search_results(msgJson);
         }
 
     }
@@ -134,6 +135,21 @@ int MessageHandler::get_id(std::string type) {
     last_request_id = last_request_id + 1;
     mapping_table.insert(last_request_id, type);
     mutex.unlock();
-
     return last_request_id;
+}
+
+void MessageHandler::parse_search_results(nlohmann::json msgJson) {
+    std::vector<Track> searchResults;
+
+    nlohmann::json tracks = msgJson["result"][0]["tracks"];
+    //std::cout << tracks.dump(2) << std::endl;
+
+    for(nlohmann::json &element: tracks) {
+        if(element["__model__"] == "Track") {
+            Track tmpTrack = Track::parse_mopidy_track_model(element);
+            tmpTrack.print();
+        }
+        //std::cout << element.dump(2) << std::endl;
+    }
+
 }

@@ -10,12 +10,6 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
     /* === UI ELEMENTS === */
     QVBoxLayout *layout = new QVBoxLayout;
 
-    /* === SETTINGS === */
-    QSettings settings("metasoft", "mopidydisplay");
-    settings.beginGroup("display");
-    QString img_path = settings.value("cover", "/home/jan/git/MopidyDisplay/media/images/placeholder_small.jpg").toString();
-    settings.endGroup();
-
     // MENUBAR
     mainMenu.setTitle("Action");
     quitAction.setText("Quit");
