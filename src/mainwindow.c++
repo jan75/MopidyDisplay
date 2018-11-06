@@ -1,5 +1,5 @@
-// mainwindow.cpp
-#include "mainwindow.hpp"
+// mainwindow.c++
+#include "mainwindow.h++"
 
 using nlohmann::json;
 
@@ -43,10 +43,8 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
 
     // SEARCH LAYOUT
     QVBoxLayout *playlistLayout = new QVBoxLayout;
-    playlistList.addItem("Hello World!");
-    playlistList.addItem("Hello World!");
-    playlistList.addItem("Hello World!");
-    playlistLayout->addWidget(&playlistList);
+    playlistView.setModel(&playlistModel);
+    playlistLayout->addWidget(&playlistView);
 
     // PLAY LAYOUT
     QVBoxLayout *playLayout = new QVBoxLayout;
@@ -131,9 +129,9 @@ void MainWindow::set_current_song(std::shared_ptr<Track> track) {
     artist.setText(track->get_artist());
 }
 
-void MainWindow::replace_playlist(std::vector<Track> playlist) {
-    playlistList.clear();
-    for(Track track: playlist) {
-        playlistList.addItem(track.get_title());
+void MainWindow::replace_playlist(std::vector<std::shared_ptr<Track>> playlist) {
+    playlistModel.clearItems();
+    for(std::shared_ptr<Track> track: playlist) {
+        this->playlistModel.addItem(track.get()->get_title());
     }
 }

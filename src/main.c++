@@ -1,14 +1,14 @@
-// main.cpp
+// main.c++
 #include <iostream>
 #include <QApplication>
 #include <QLabel>
 #include <QtWidgets>
 //#include <unistd.h>
 
-#include "mainwindow.hpp"
-#include "ws_client_qt.hpp"
-#include "messagehandler.hpp"
-#include <json.hpp>
+#include "mainwindow.h++"
+#include "ws_client_qt.h++"
+#include "messagehandler.h++"
+#include <json.h++>
 
 #ifdef WIN32
     #include <io.h>

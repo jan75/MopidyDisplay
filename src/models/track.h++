@@ -3,15 +3,16 @@
 #define H_TRACK
 #include <QString>
 #include <QSettings>
+#include <QListWidgetItem>
+#include <memory>
 #include <iostream>
-#include <json.hpp>
+#include <json.h++>
 
-class Track {
+class Track : public QListWidgetItem {
     public:
-        Track(std::string title, std::string album, std::string artist);
-        Track(QString title, QString album, QString artist);
+        Track(QString title, QString album, QString artist, QListWidget *parent = nullptr, int type = Type);
+        //Track(QString title, QString album, QString artist, QObject *parent = 0);
         
-        static Track parse_mopidy_track_model(nlohmann::json json);
         void print();
 
         void set_title(QString title);

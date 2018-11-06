@@ -1,4 +1,4 @@
-// mainwindow.hpp
+// mainwindow.h++
 #ifndef H_MAINWINDOW
 #define H_MAINWINDOW
 #include <QApplication>
@@ -18,9 +18,10 @@
 #include <QPixmap>
 #include <memory>
 
-#include "models/track.hpp"
-#include "messagehandler.hpp"
-#include <json.hpp>
+#include "models/track.h++"
+#include "models/playlist.h++"
+#include "messagehandler.h++"
+#include <json.h++>
 
 #ifdef WIN32
     #include <io.h>
@@ -62,7 +63,8 @@ class MainWindow : public QWidget {
         QLabel album;
         QLabel artist;
 
-        QListWidget playlistList;
+        Playlist playlistModel;
+        QListView playlistView;
 
         QGroupBox bottomBox;
         QLabel connectionStatusLabel;
@@ -77,7 +79,7 @@ class MainWindow : public QWidget {
     private slots:
         void quit_application();
         void search_artist();
-        void replace_playlist(std::vector<Track> playlist);
+        void replace_playlist(std::vector<std::shared_ptr<Track>> playlist);
         void set_current_song(std::shared_ptr<Track> track);
         void update_label_text(nlohmann::json msg);
         

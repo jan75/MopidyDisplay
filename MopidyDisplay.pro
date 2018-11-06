@@ -9,7 +9,7 @@ TARGET = MopidyDisplay
 
 CONFIG += qt
 CONFIG += debug
-CONFIG += c++11
+CONFIG += c++14
 
 QT += widgets
 QT += websockets
@@ -19,14 +19,16 @@ win32: LIBS += -lws2_32
 INCLUDEPATH += .
 INCLUDEPATH += lib/json/
 
-HEADERS += lib/json/json.hpp
-HEADERS += src/mainwindow.hpp
-HEADERS += src/messagehandler.hpp
-HEADERS += src/ws_client_qt.hpp
-HEADERS += src/models/track.hpp
+HEADERS += lib/json/json.h++
+HEADERS += src/mainwindow.h++
+HEADERS += src/messagehandler.h++
+HEADERS += src/ws_client_qt.h++
+HEADERS += src/models/track.h++
+HEADERS += src/models/playlist.h++
 
-SOURCES += src/main.cpp
-SOURCES += src/mainwindow.cpp
-SOURCES += src/messagehandler.cpp
-SOURCES += src/ws_client_qt.cpp
-SOURCES += src/models/track.cpp
+SOURCES += src/main.c++
+SOURCES += src/mainwindow.c++
+SOURCES += src/messagehandler.c++
+SOURCES += src/ws_client_qt.c++
+SOURCES += src/models/track.c++
+SOURCES += src/models/playlist.c++

@@ -1,4 +1,4 @@
-// messagehandler.hpp
+// messagehandler.h++
 #ifndef H_MESSAGEHANDLER
 #define H_MESSAGEHANDLER
 #include <QObject>
@@ -11,9 +11,9 @@
 #include <map>
 
 //#include "mainwindow.hpp"
-#include "ws_client_qt.hpp"
-#include "models/track.hpp"
-#include <json.hpp>
+#include "ws_client_qt.h++"
+#include "models/track.h++"
+#include <json.h++>
 
 #ifdef WIN32
     #include <io.h>
@@ -35,6 +35,9 @@ class MessageHandler : public QObject {
         int get_id(std::string type);
         std::string get_result_type(int id);
         void parse_search_results(nlohmann::json msgJson);
+        void parse_playlist_response(nlohmann::json msgJson);
+
+        std::shared_ptr<Track> parse_mopidy_track_model(nlohmann::json json);
         
         void get_playlist();
     
@@ -48,7 +51,7 @@ class MessageHandler : public QObject {
         
     signals:
         void track_change(std::shared_ptr<Track> track);
-        void playlist_change(std::vector<Track> playlist);
+        void playlist_change(std::vector<std::shared_ptr<Track>> playlist);
         void text_msg_received(nlohmann::json msg);
         void update_conn_label(QString msg);
         

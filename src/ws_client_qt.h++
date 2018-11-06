@@ -1,4 +1,4 @@
-// ws_client_qt.hpp
+// ws_client_qt.h++
 #ifndef H_WS_CLIENT_QT
 #define H_WS_CLIENT_QT
 
@@ -12,7 +12,7 @@
 #include <QQueue>
 #include <QtWebSockets/QtWebSockets>
 #include <QWebSocket>
-//#include "mainwindow.hpp"
+//#include "mainwindow.h++"
 
 #ifdef WIN32
     #include <io.h>

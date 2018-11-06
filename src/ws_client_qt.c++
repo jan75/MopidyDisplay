@@ -1,6 +1,6 @@
-// ws_client_qt.cpp
-#include "ws_client_qt.hpp"
-#include "mainwindow.hpp"
+// ws_client_qt.c++
+#include "ws_client_qt.h++"
+#include "mainwindow.h++"
 
 WebSocketClientQt::WebSocketClientQt() {
     connected = false;
