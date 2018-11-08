@@ -20,14 +20,12 @@ void MessageHandler::connect_ws() {
 }
 
 void MessageHandler::send_json(json msgJson) {
-    //std::cout << msgJson << std::endl;
     // "{'jsonrpc': '2.0', 'id': 1, 'method': 'core.playback.get_state'}"
     QString msg = QString::fromStdString(msgJson.dump());
     wsc->send_msg(msg);
 }
 
 void MessageHandler::handle_message(QString msg) {
-    //std::cout << msg.toStdString() << std::endl;
     std::string msgStr = msg.toStdString();
     json msgJson = create_json_object(msgStr);
 
@@ -42,12 +40,11 @@ void MessageHandler::handle_message(QString msg) {
         std::string type = get_result_type(id);
 
         if(type == "tracklist") {
-            std::cout << "tracklist result received, id: " << id << std::endl;
             parse_playlist_response(msgJson);
         }
 
         if(type == "search") {
-            std::cout << "search result received, id: " << id << std::endl;
+
         }
 
     }
@@ -55,16 +52,16 @@ void MessageHandler::handle_message(QString msg) {
 
 void MessageHandler::handle_event(json msgJson) {
     std::string eventStr = msgJson["event"];
-    //std::cout << "Handling event: " << eventStr << std::endl;
-
     // stream_title_changed
 
     if(eventStr == "track_playback_started") {
         QString title = QString::fromStdString(msgJson["tl_track"]["track"]["name"]);
         QString album = QString::fromStdString(msgJson["tl_track"]["track"]["album"]["name"]);
         QString artist = QString::fromStdString(msgJson["tl_track"]["track"]["album"]["artists"][0]["name"]);
+        int length = msgJson["tl_track"]["track"]["length"];
+        int track_number = msgJson["tl_track"]["track"]["track_no"];
 
-        std::shared_ptr<Track> track = std::make_shared<Track>(title, album, artist);
+        std::shared_ptr<Track> track = std::make_shared<Track>(title, album, artist, length, track_number);
         emit track_change(track);
     }
 
@@ -84,7 +81,6 @@ json MessageHandler::create_json_object(std::string msg) {
 }
 
 void MessageHandler::search_artists(QString artist) {
-    std::cout << "Searching for artist " << artist.toStdString() << std::endl;
 
     int id = get_id("search");
     json queryParams;
@@ -102,7 +98,6 @@ void MessageHandler::search_artists(QString artist) {
 
 void MessageHandler::get_playlist() {
     std::vector<Track> trackList;
-    std::cout << "Querying current playlist" << std::endl;
 
     int id = get_id("tracklist");
     json queryJson;
@@ -145,7 +140,6 @@ void MessageHandler::parse_playlist_response(nlohmann::json msgJson) {
             std::shared_ptr<Track> tmpTrack = parse_mopidy_track_model(element);
             playlistList.push_back(tmpTrack);
         }
-        //std::cout << element.dump(2) << std::endl;
     }
 
     emit playlist_change(playlistList);
@@ -164,9 +158,12 @@ std::shared_ptr<Track> MessageHandler::parse_mopidy_track_model(nlohmann::json j
         artist = artists[0]["name"];
     }
 
+    int length = json["length"];
+    int track_number = json["track_no"];
+
     QString titleQ = QString::fromStdString(title);
     QString albumQ = QString::fromStdString(album);
     QString artistQ = QString::fromStdString(artist);
 
-    return std::make_shared<Track>(titleQ, albumQ, artistQ);
+    return std::make_shared<Track>(titleQ, albumQ, artistQ, length, track_number);
 }

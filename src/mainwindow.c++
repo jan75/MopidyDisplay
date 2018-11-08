@@ -43,6 +43,7 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
 
     // SEARCH LAYOUT
     QVBoxLayout *playlistLayout = new QVBoxLayout;
+    playlistView.verticalHeader()->setVisible(false);
     playlistView.setModel(&playlistModel);
     playlistLayout->addWidget(&playlistView);
 
@@ -112,9 +113,7 @@ void MainWindow::search_artist() {
 }
 
 void MainWindow::update_label_text(nlohmann::json msg) {
-    //std::cout << "update_label_text" << std::endl;
     QString qPrettyJson = QString::fromStdString(msg.dump(2));
-    std::cout << msg << std::endl;
     
     plainText.clear();
     plainText.appendPlainText(qPrettyJson);
@@ -131,7 +130,5 @@ void MainWindow::set_current_song(std::shared_ptr<Track> track) {
 
 void MainWindow::replace_playlist(std::vector<std::shared_ptr<Track>> playlist) {
     playlistModel.clearItems();
-    for(std::shared_ptr<Track> track: playlist) {
-        this->playlistModel.addItem(track.get()->get_title());
-    }
+    this->playlistModel.addTracks(playlist);
 }

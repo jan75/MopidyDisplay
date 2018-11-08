@@ -6,7 +6,7 @@
 #include <QtWidgets>
 #include <QWidget>
 #include <QLineEdit>
-#include <QListWidget>
+#include <QTableView>
 #include <QGroupBox>
 #include <QAction>
 #include <QMutex>
@@ -50,7 +50,8 @@ class MainWindow : public QWidget {
         
         QGroupBox topBox;
         QPushButton previousSong;
-        QPushButton togglePlay;
+        QPushButton togglePlay;        //QListView playlistView;
+
         QPushButton nextSong;
         QLineEdit searchInput;
         QPushButton searchBtn;
@@ -64,7 +65,7 @@ class MainWindow : public QWidget {
         QLabel artist;
 
         Playlist playlistModel;
-        QListView playlistView;
+        QTableView playlistView;
 
         QGroupBox bottomBox;
         QLabel connectionStatusLabel;

@@ -35,7 +35,6 @@ void WebSocketClientQt::changed_state(QAbstractSocket::SocketState state) {
 }
 
 void WebSocketClientQt::text_msg_received(QString msg) {
-    std::cout << "Text message received: << " << msg.toStdString() << std::endl;
     emit dispatch_message(msg);
 }
 
