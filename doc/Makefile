@@ -16,6 +16,4 @@ help:
 
 %: Makefile
 	$(MAKE) -C doxygen -f Makefile doxygen
-	#doxygen $(DOXYGENCONF)
 	$(MAKE) -C sphinx -f Makefile $@
-	#$(MAKE) -f Makefile html

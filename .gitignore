@@ -1,6 +1,11 @@
+./Makefile
+
 build
-*.o
 .qmake.stash
 *.cpp.swp
-Makefile
+*.o
 moc_*
+MopidyDisplay.pro.user
+
+doc/sphinx/doctrees
+doc/doxygen/build
