@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MainWindow &mdash; MopidyDisplay  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MessageHandler" href="messagehandler.html" />
+    <link rel="prev" title="Classes" href="../classes.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> MopidyDisplay
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../classes.html">Classes</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MainWindow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messagehandler.html">MessageHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketclientqt.html">WebSocketClientQt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MopidyDisplay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../classes.html">Classes</a> &raquo;</li>
+        
+      <li>MainWindow</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/code/mainwindow.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mainwindow">
+<h1>MainWindow<a class="headerlink" href="#mainwindow" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="_CPPv310MainWindow">
+<span id="_CPPv210MainWindow"></span><span id="MainWindow"></span><span class="target" id="classMainWindow"></span><em class="property">class </em><code class="descname">MainWindow</code> : <em class="property">public</em> QWidget<a class="headerlink" href="#_CPPv310MainWindow" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classMainWindow"><span class="std std-ref">MainWindow</span></a> class contains the information to create draw the window. It also communicates with the websocket class. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv3N10MainWindow10MainWindowEP14MessageHandler">
+<span id="_CPPv2N10MainWindow10MainWindowEP14MessageHandler"></span><span id="MainWindow::MainWindow__MessageHandlerP"></span><span class="target" id="classMainWindow_1a2a53031e1bc9878f930d907ddda0c76d"></span><code class="descname">MainWindow</code><span class="sig-paren">(</span><a class="reference internal" href="messagehandler.html#_CPPv314MessageHandler" title="MessageHandler">MessageHandler</a> *<em>messageHandler</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N10MainWindow10MainWindowEP14MessageHandler" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N10MainWindow13get_searchBtnEv">
+<span id="_CPPv2N10MainWindow13get_searchBtnEv"></span><span id="MainWindow::get_searchBtn"></span><span class="target" id="classMainWindow_1ab76a4a770bde1ef002767bcdb995a308"></span>QPushButton <code class="descname">get_searchBtn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N10MainWindow13get_searchBtnEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Protected Functions</p>
+<dl class="function">
+<dt id="_CPPv3N10MainWindow10closeEventEP11QCloseEvent">
+<span id="_CPPv2N10MainWindow10closeEventEP11QCloseEvent"></span><span id="MainWindow::closeEvent__QCloseEventP"></span><span class="target" id="classMainWindow_1a38edb88d43e844aca9d2e762c8706565"></span>void <code class="descname">closeEvent</code><span class="sig-paren">(</span>QCloseEvent *<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N10MainWindow10closeEventEP11QCloseEvent" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Members</p>
+<dl class="member">
+<dt id="_CPPv3N10MainWindow14messageHandlerE">
+<span id="_CPPv2N10MainWindow14messageHandlerE"></span><span id="MainWindow::messageHandler__MessageHandlerP"></span><span class="target" id="classMainWindow_1a535dcc6c96714564452987f59c772326"></span><a class="reference internal" href="messagehandler.html#_CPPv314MessageHandler" title="MessageHandler">MessageHandler</a> *<code class="descname">messageHandler</code><a class="headerlink" href="#_CPPv3N10MainWindow14messageHandlerE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow5labelE">
+<span id="_CPPv2N10MainWindow5labelE"></span><span id="MainWindow::label__QLabel"></span><span class="target" id="classMainWindow_1adb643e343c94fa635c0aaedf3b331293"></span>QLabel <code class="descname">label</code><a class="headerlink" href="#_CPPv3N10MainWindow5labelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow9plainTextE">
+<span id="_CPPv2N10MainWindow9plainTextE"></span><span id="MainWindow::plainText__QPlainTextEdit"></span><span class="target" id="classMainWindow_1a088eb367d4a5805b657665a4303b036e"></span>QPlainTextEdit <code class="descname">plainText</code><a class="headerlink" href="#_CPPv3N10MainWindow9plainTextE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow5mutexE">
+<span id="_CPPv2N10MainWindow5mutexE"></span><span id="MainWindow::mutex__QMutex"></span><span class="target" id="classMainWindow_1a9ed781aae28b5e872e53e38f140b26eb"></span>QMutex <code class="descname">mutex</code><a class="headerlink" href="#_CPPv3N10MainWindow5mutexE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow7menuBarE">
+<span id="_CPPv2N10MainWindow7menuBarE"></span><span id="MainWindow::menuBar__QMenuBar"></span><span class="target" id="classMainWindow_1a5239de5dbb14038f15845440bbddfa91"></span>QMenuBar <code class="descname">menuBar</code><a class="headerlink" href="#_CPPv3N10MainWindow7menuBarE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow8mainMenuE">
+<span id="_CPPv2N10MainWindow8mainMenuE"></span><span id="MainWindow::mainMenu__QMenu"></span><span class="target" id="classMainWindow_1a895cace178130f06089abd1483a28080"></span>QMenu <code class="descname">mainMenu</code><a class="headerlink" href="#_CPPv3N10MainWindow8mainMenuE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow9aboutMenuE">
+<span id="_CPPv2N10MainWindow9aboutMenuE"></span><span id="MainWindow::aboutMenu__QMenu"></span><span class="target" id="classMainWindow_1a47b3bb1ef1bc9f9991b44c8aaa916bb8"></span>QMenu <code class="descname">aboutMenu</code><a class="headerlink" href="#_CPPv3N10MainWindow9aboutMenuE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow14settingsActionE">
+<span id="_CPPv2N10MainWindow14settingsActionE"></span><span id="MainWindow::settingsAction__QAction"></span><span class="target" id="classMainWindow_1a2fc846850b1a3eeaf748ff0a3dcb80e5"></span>QAction <code class="descname">settingsAction</code><a class="headerlink" href="#_CPPv3N10MainWindow14settingsActionE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow10quitActionE">
+<span id="_CPPv2N10MainWindow10quitActionE"></span><span id="MainWindow::quitAction__QAction"></span><span class="target" id="classMainWindow_1a69da38b583d7fa8060edb3fe7dfb0698"></span>QAction <code class="descname">quitAction</code><a class="headerlink" href="#_CPPv3N10MainWindow10quitActionE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow6topBoxE">
+<span id="_CPPv2N10MainWindow6topBoxE"></span><span id="MainWindow::topBox__QGroupBox"></span><span class="target" id="classMainWindow_1aaa1265174b49f7d7da39d9253c23f8b8"></span>QGroupBox <code class="descname">topBox</code><a class="headerlink" href="#_CPPv3N10MainWindow6topBoxE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow12previousSongE">
+<span id="_CPPv2N10MainWindow12previousSongE"></span><span id="MainWindow::previousSong__QPushButton"></span><span class="target" id="classMainWindow_1ae0454f2530cf1b7239b35dcf5da287ac"></span>QPushButton <code class="descname">previousSong</code><a class="headerlink" href="#_CPPv3N10MainWindow12previousSongE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow10togglePlayE">
+<span id="_CPPv2N10MainWindow10togglePlayE"></span><span id="MainWindow::togglePlay__QPushButton"></span><span class="target" id="classMainWindow_1abdc0b0483659222e55c309873c8a9466"></span>QPushButton <code class="descname">togglePlay</code><a class="headerlink" href="#_CPPv3N10MainWindow10togglePlayE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow8nextSongE">
+<span id="_CPPv2N10MainWindow8nextSongE"></span><span id="MainWindow::nextSong__QPushButton"></span><span class="target" id="classMainWindow_1ae927a90c70f3b4170f49b163ab21e7ea"></span>QPushButton <code class="descname">nextSong</code><a class="headerlink" href="#_CPPv3N10MainWindow8nextSongE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow11searchInputE">
+<span id="_CPPv2N10MainWindow11searchInputE"></span><span id="MainWindow::searchInput__QLineEdit"></span><span class="target" id="classMainWindow_1a5c0accdd3e655a8be8b4af1a68bf4b1f"></span>QLineEdit <code class="descname">searchInput</code><a class="headerlink" href="#_CPPv3N10MainWindow11searchInputE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow9searchBtnE">
+<span id="_CPPv2N10MainWindow9searchBtnE"></span><span id="MainWindow::searchBtn__QPushButton"></span><span class="target" id="classMainWindow_1a58b9b9a8c9f1ed6635bea882990c25d1"></span>QPushButton <code class="descname">searchBtn</code><a class="headerlink" href="#_CPPv3N10MainWindow9searchBtnE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow10contentBoxE">
+<span id="_CPPv2N10MainWindow10contentBoxE"></span><span id="MainWindow::contentBox__QGroupBox"></span><span class="target" id="classMainWindow_1ae36bf24fda2874b7d23d58f539604bea"></span>QGroupBox <code class="descname">contentBox</code><a class="headerlink" href="#_CPPv3N10MainWindow10contentBoxE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow10coverImageE">
+<span id="_CPPv2N10MainWindow10coverImageE"></span><span id="MainWindow::coverImage__QPixmap"></span><span class="target" id="classMainWindow_1a436908f155bcdbd203a49b2a00990f9b"></span>QPixmap <code class="descname">coverImage</code><a class="headerlink" href="#_CPPv3N10MainWindow10coverImageE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow10coverLabelE">
+<span id="_CPPv2N10MainWindow10coverLabelE"></span><span id="MainWindow::coverLabel__QLabel"></span><span class="target" id="classMainWindow_1ab9fa9656983d3c631df9b80503257e59"></span>QLabel <code class="descname">coverLabel</code><a class="headerlink" href="#_CPPv3N10MainWindow10coverLabelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow5titleE">
+<span id="_CPPv2N10MainWindow5titleE"></span><span id="MainWindow::title__QLabel"></span><span class="target" id="classMainWindow_1a365606de245a4f3db0f06b6b76130a67"></span>QLabel <code class="descname">title</code><a class="headerlink" href="#_CPPv3N10MainWindow5titleE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow5albumE">
+<span id="_CPPv2N10MainWindow5albumE"></span><span id="MainWindow::album__QLabel"></span><span class="target" id="classMainWindow_1a9d3d4040326a042f70bab9c096c7907e"></span>QLabel <code class="descname">album</code><a class="headerlink" href="#_CPPv3N10MainWindow5albumE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow6artistE">
+<span id="_CPPv2N10MainWindow6artistE"></span><span id="MainWindow::artist__QLabel"></span><span class="target" id="classMainWindow_1a2d154eae7ffab5c442ef05f00ba5a469"></span>QLabel <code class="descname">artist</code><a class="headerlink" href="#_CPPv3N10MainWindow6artistE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow13playlistModelE">
+<span id="_CPPv2N10MainWindow13playlistModelE"></span><span id="MainWindow::playlistModel__Playlist"></span><span class="target" id="classMainWindow_1ac7deef569d1d536e93fbbd09e14b45f1"></span><a class="reference internal" href="models/playlist.html#_CPPv38Playlist" title="Playlist">Playlist</a> <code class="descname">playlistModel</code><a class="headerlink" href="#_CPPv3N10MainWindow13playlistModelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow12playlistViewE">
+<span id="_CPPv2N10MainWindow12playlistViewE"></span><span id="MainWindow::playlistView__QTableView"></span><span class="target" id="classMainWindow_1a5b53bdc109b169289ff65014bcd105f1"></span>QTableView <code class="descname">playlistView</code><a class="headerlink" href="#_CPPv3N10MainWindow12playlistViewE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow9bottomBoxE">
+<span id="_CPPv2N10MainWindow9bottomBoxE"></span><span id="MainWindow::bottomBox__QGroupBox"></span><span class="target" id="classMainWindow_1abd90859919e360f382271fa89a70a5f0"></span>QGroupBox <code class="descname">bottomBox</code><a class="headerlink" href="#_CPPv3N10MainWindow9bottomBoxE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow21connectionStatusLabelE">
+<span id="_CPPv2N10MainWindow21connectionStatusLabelE"></span><span id="MainWindow::connectionStatusLabel__QLabel"></span><span class="target" id="classMainWindow_1aeb9719cb11358dd84ddc74433c29cb9a"></span>QLabel <code class="descname">connectionStatusLabel</code><a class="headerlink" href="#_CPPv3N10MainWindow21connectionStatusLabelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow12connectWSBtnE">
+<span id="_CPPv2N10MainWindow12connectWSBtnE"></span><span id="MainWindow::connectWSBtn__QPushButton"></span><span class="target" id="classMainWindow_1acde77a8c91015698ced4cbed7073e2ef"></span>QPushButton <code class="descname">connectWSBtn</code><a class="headerlink" href="#_CPPv3N10MainWindow12connectWSBtnE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow5trackE">
+<span id="_CPPv2N10MainWindow5trackE"></span><span id="MainWindow::track__std::shared_ptr:Track:"></span><span class="target" id="classMainWindow_1ac566b2cc855babfcdf072a1bed5dcf0d"></span>std::shared_ptr&lt;<a class="reference internal" href="models/track.html#_CPPv35Track" title="Track">Track</a>&gt; <code class="descname">track</code><a class="headerlink" href="#_CPPv3N10MainWindow5trackE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N10MainWindow8playlistE">
+<span id="_CPPv2N10MainWindow8playlistE"></span><span id="MainWindow::playlist__std::vector:Track:"></span><span class="target" id="classMainWindow_1ac2167f5530f7abd327ceb5c21bad3c0b"></span>std::vector&lt;<a class="reference internal" href="models/track.html#_CPPv35Track" title="Track">Track</a>&gt; <code class="descname">playlist</code><a class="headerlink" href="#_CPPv3N10MainWindow8playlistE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Slots</p>
+<dl class="function">
+<dt id="_CPPv3N10MainWindow16quit_applicationEv">
+<span id="_CPPv2N10MainWindow16quit_applicationEv"></span><span id="MainWindow::quit_application"></span><span class="target" id="classMainWindow_1a7b5cfeac00f79b3eec33a7dec7e789dc"></span>void <code class="descname">quit_application</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N10MainWindow16quit_applicationEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N10MainWindow13search_artistEv">
+<span id="_CPPv2N10MainWindow13search_artistEv"></span><span id="MainWindow::search_artist"></span><span class="target" id="classMainWindow_1ae88ae11f88032ddd6055504d4b1447de"></span>void <code class="descname">search_artist</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N10MainWindow13search_artistEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N10MainWindow16replace_playlistENSt6vectorINSt10shared_ptrI5TrackEEEE">
+<span id="_CPPv2N10MainWindow16replace_playlistENSt6vectorINSt10shared_ptrI5TrackEEEE"></span><span id="MainWindow::replace_playlist__std::vector:std::shared_ptr:Track::"></span><span class="target" id="classMainWindow_1abee70d487cc2f94b177d62988d1ba012"></span>void <code class="descname">replace_playlist</code><span class="sig-paren">(</span>std::vector&lt;std::shared_ptr&lt;<a class="reference internal" href="models/track.html#_CPPv35Track" title="Track">Track</a>&gt;&gt; <em>playlist</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N10MainWindow16replace_playlistENSt6vectorINSt10shared_ptrI5TrackEEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N10MainWindow16set_current_songENSt10shared_ptrI5TrackEE">
+<span id="_CPPv2N10MainWindow16set_current_songENSt10shared_ptrI5TrackEE"></span><span id="MainWindow::set_current_song__std::shared_ptr:Track:"></span><span class="target" id="classMainWindow_1a17af9065eeefc720a4f9b6330b5509e9"></span>void <code class="descname">set_current_song</code><span class="sig-paren">(</span>std::shared_ptr&lt;<a class="reference internal" href="models/track.html#_CPPv35Track" title="Track">Track</a>&gt; <em>track</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N10MainWindow16set_current_songENSt10shared_ptrI5TrackEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Update labels to represent current playing song. </p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">track</span></code>: </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N10MainWindow17update_label_textEN8nlohmann4jsonE">
+<span id="_CPPv2N10MainWindow17update_label_textEN8nlohmann4jsonE"></span><span id="MainWindow::update_label_text__nlohmann::json"></span><span class="target" id="classMainWindow_1a3647e7502200160596660a2e33d25b2a"></span>void <code class="descname">update_label_text</code><span class="sig-paren">(</span>nlohmann::json <em>msg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N10MainWindow17update_label_textEN8nlohmann4jsonE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="messagehandler.html" class="btn btn-neutral float-right" title="MessageHandler" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../classes.html" class="btn btn-neutral" title="Classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Jan Ackermann.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

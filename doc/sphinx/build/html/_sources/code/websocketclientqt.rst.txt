@@ -1,0 +1,3 @@
+WebSocketClientQt
+=================
+.. doxygenclass:: WebSocketClientQt

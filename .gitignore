@@ -8,4 +8,5 @@ moc_*
 MopidyDisplay.pro.user
 
 doc/sphinx/doctrees
+!doc/sphinx/build
 doc/doxygen/build

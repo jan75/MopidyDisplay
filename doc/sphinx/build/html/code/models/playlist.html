@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Playlist &mdash; MopidyDisplay  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Track" href="track.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> MopidyDisplay
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../classes.html">Classes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../mainwindow.html">MainWindow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../messagehandler.html">MessageHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../websocketclientqt.html">WebSocketClientQt</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../models.html">Models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="track.html">Track</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Playlist</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MopidyDisplay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../classes.html">Classes</a> &raquo;</li>
+        
+          <li><a href="../models.html">Models</a> &raquo;</li>
+        
+      <li>Playlist</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/code/models/playlist.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="playlist">
+<h1>Playlist<a class="headerlink" href="#playlist" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="_CPPv38Playlist">
+<span id="_CPPv28Playlist"></span><span id="Playlist"></span><span class="target" id="classPlaylist"></span><em class="property">class </em><code class="descname">Playlist</code> : <em class="property">public</em> QAbstractTableModel<a class="headerlink" href="#_CPPv38Playlist" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv3N8Playlist8PlaylistEP7QObject">
+<span id="_CPPv2N8Playlist8PlaylistEP7QObject"></span><span id="Playlist::Playlist__QObjectP"></span><span class="target" id="classPlaylist_1a140fe85c44e0eece7595c293b92df88c"></span><code class="descname">Playlist</code><span class="sig-paren">(</span>QObject *<em>parent</em> = nullptr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N8Playlist8PlaylistEP7QObject" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK8Playlist8rowCountERK11QModelIndex">
+<span id="_CPPv2NK8Playlist8rowCountERK11QModelIndex"></span><span id="Playlist::rowCount__QModelIndexCRC"></span><span class="target" id="classPlaylist_1a26d143a250d7c632d6f870606f1c7d0a"></span>int <code class="descname">rowCount</code><span class="sig-paren">(</span><em class="property">const</em> QModelIndex &amp;<em>parent</em> = QModelIndex()<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK8Playlist8rowCountERK11QModelIndex" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK8Playlist11columnCountERK11QModelIndex">
+<span id="_CPPv2NK8Playlist11columnCountERK11QModelIndex"></span><span id="Playlist::columnCount__QModelIndexCRC"></span><span class="target" id="classPlaylist_1ac2836dbaa218c9965b8699d09037f3d1"></span>int <code class="descname">columnCount</code><span class="sig-paren">(</span><em class="property">const</em> QModelIndex &amp;<em>parent</em> = QModelIndex()<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK8Playlist11columnCountERK11QModelIndex" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK8Playlist10headerDataEiN2Qt11OrientationEi">
+<span id="_CPPv2NK8Playlist10headerDataEiN2Qt11OrientationEi"></span><span id="Playlist::headerData__i.Qt::Orientation.iC"></span><span class="target" id="classPlaylist_1ac742bc680b7eb48793174913826276fa"></span>QVariant <code class="descname">headerData</code><span class="sig-paren">(</span>int <em>section</em>, Qt::Orientation <em>orientation</em>, int <em>role</em> = Qt::DisplayRole<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK8Playlist10headerDataEiN2Qt11OrientationEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK8Playlist4dataERK11QModelIndexi">
+<span id="_CPPv2NK8Playlist4dataERK11QModelIndexi"></span><span id="Playlist::data__QModelIndexCR.iC"></span><span class="target" id="classPlaylist_1aec772391cd1ef56c6d1b965f5346d2c6"></span>QVariant <code class="descname">data</code><span class="sig-paren">(</span><em class="property">const</em> QModelIndex &amp;<em>index</em>, int <em>role</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK8Playlist4dataERK11QModelIndexi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N8Playlist8addTrackERNSt10shared_ptrI5TrackEE">
+<span id="_CPPv2N8Playlist8addTrackERNSt10shared_ptrI5TrackEE"></span><span id="Playlist::addTrack__std::shared_ptr:Track:R"></span><span class="target" id="classPlaylist_1a27236e6ab4802b5287227040cd9cb104"></span>void <code class="descname">addTrack</code><span class="sig-paren">(</span>std::shared_ptr&lt;<a class="reference internal" href="track.html#_CPPv35Track" title="Track">Track</a>&gt; &amp;<em>track</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N8Playlist8addTrackERNSt10shared_ptrI5TrackEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N8Playlist9addTracksERNSt6vectorINSt10shared_ptrI5TrackEEEE">
+<span id="_CPPv2N8Playlist9addTracksERNSt6vectorINSt10shared_ptrI5TrackEEEE"></span><span id="Playlist::addTracks__std::vector:std::shared_ptr:Track::R"></span><span class="target" id="classPlaylist_1a0b23cbbd62210dc8b7ec53880d311a15"></span>void <code class="descname">addTracks</code><span class="sig-paren">(</span>std::vector&lt;std::shared_ptr&lt;<a class="reference internal" href="track.html#_CPPv35Track" title="Track">Track</a>&gt;&gt; &amp;<em>track_list</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N8Playlist9addTracksERNSt6vectorINSt10shared_ptrI5TrackEEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N8Playlist10clearItemsEv">
+<span id="_CPPv2N8Playlist10clearItemsEv"></span><span id="Playlist::clearItems"></span><span class="target" id="classPlaylist_1ac3ad7e163ee4c8e7ab741bba68d7b5ee"></span>void <code class="descname">clearItems</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3N8Playlist10clearItemsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Members</p>
+<dl class="member">
+<dt id="_CPPv3N8Playlist10stringListE">
+<span id="_CPPv2N8Playlist10stringListE"></span><span id="Playlist::stringList__QStringList"></span><span class="target" id="classPlaylist_1a5f399cb89c46347be86b5bbd2ee399e5"></span>QStringList <code class="descname">stringList</code><a class="headerlink" href="#_CPPv3N8Playlist10stringListE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv3N8Playlist9trackListE">
+<span id="_CPPv2N8Playlist9trackListE"></span><span id="Playlist::trackList__std::vector:std::shared_ptr:Track::"></span><span class="target" id="classPlaylist_1a6bd569515395faec9d1bbea42b8acb53"></span>std::vector&lt;std::shared_ptr&lt;<a class="reference internal" href="track.html#_CPPv35Track" title="Track">Track</a>&gt;&gt; <code class="descname">trackList</code><a class="headerlink" href="#_CPPv3N8Playlist9trackListE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="track.html" class="btn btn-neutral" title="Track" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Jan Ackermann.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

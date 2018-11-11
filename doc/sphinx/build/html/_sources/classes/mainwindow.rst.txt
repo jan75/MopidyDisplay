@@ -1,0 +1,12 @@
+Classes
+=======
+.. toctree::
+    :maxdepth: 1
+    :caption: Classes:
+
+    main
+    MainWindow
+    MessageHandler
+    WebSocketClientQt
+    models/Track
+    models/Playlist

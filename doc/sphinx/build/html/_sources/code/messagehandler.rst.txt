@@ -1,0 +1,3 @@
+MessageHandler
+==============
+.. doxygenclass:: MessageHandler
