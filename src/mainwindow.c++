@@ -30,25 +30,6 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
     togglePlay.setMaximumWidth(60);
     nextSong.setText(">");
     nextSong.setMaximumWidth(20);
-    searchInput.setMaximumWidth(150);
-    searchBtn.setText("Search Artist");
-    barLayout->addWidget(&previousSong);
-    barLayout->addWidget(&togglePlay);
-    barLayout->addWidget(&nextSong);
-    barLayout->addWidget(&title);
-    barLayout->addStretch();
-    barLayout->addWidget(&searchInput);
-    barLayout->addWidget(&searchBtn);
-    topBox.setLayout(barLayout);
-
-    // SEARCH LAYOUT
-    QVBoxLayout *playlistLayout = new QVBoxLayout;
-    playlistView.verticalHeader()->setVisible(false);
-    playlistView.setModel(&playlistModel);
-    playlistLayout->addWidget(&playlistView);
-
-    // PLAY LAYOUT
-    QVBoxLayout *playLayout = new QVBoxLayout;
     //coverImage.load(img_path);
     //coverLabel.setScaledContents(true);
     //coverLabel.setMaximumWidth(450);
@@ -59,15 +40,38 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
     title.setText("<title>");
     album.setText("<album>");
     artist.setText("<artist>");
-    //playLayout->addWidget(&coverLabel); // https://stackoverflow.com/questions/8211982/qt-resizing-a-qlabel-containing-a-qpixmap-while-keeping-its-aspect-ratio
-    playLayout->addWidget(&title);
-    playLayout->addWidget(&album);
-    playLayout->addWidget(&artist);
+    searchInput.setMaximumWidth(150);
+    searchBtn.setText("Search Artist");
+    barLayout->addWidget(&previousSong);
+    barLayout->addWidget(&togglePlay);
+    barLayout->addWidget(&nextSong);
+    barLayout->addStretch();
+    //barLayout->addWidget(&coverLabel); // https://stackoverflow.com/questions/8211982/qt-resizing-a-qlabel-containing-a-qpixmap-while-keeping-its-aspect-ratio
+    barLayout->addWidget(&title);
+    barLayout->addWidget(&album);
+    barLayout->addWidget(&artist);
+    barLayout->addStretch();
+    barLayout->addWidget(&searchInput);
+    barLayout->addWidget(&searchBtn);
+    topBox.setLayout(barLayout);
+
+    // SEARCH LAYOUT
+    QVBoxLayout *searchLayout = new QVBoxLayout;
+    searchView.verticalHeader()->setVisible(false);
+    searchView.setModel(&searchModel);
+    searchLayout->addWidget(&searchView);
+
+    // PLAYLIST LAYOUT
+    QVBoxLayout *playlistLayout = new QVBoxLayout;
+    playlistView.verticalHeader()->setVisible(false);
+    playlistView.setModel(&playlistModel);
+    playlistLayout->addWidget(&playlistView);
+
 
     // CONTENT LAYOUT
     QHBoxLayout *contentLayout = new QHBoxLayout;
-    contentLayout->addItem(playLayout);
     contentLayout->addItem(playlistLayout);
+    contentLayout->addItem(searchLayout);
     contentBox.setLayout(contentLayout);
 
     // TEXT AREA
@@ -120,6 +124,10 @@ void MainWindow::update_label_text(nlohmann::json msg) {
     //label.setText(qText);
 };
 
+/**
+ * @brief Update labels to represent current playing song
+ * @param track
+ */
 void MainWindow::set_current_song(std::shared_ptr<Track> track) {
     this->track = track;
     std::cout << "Changing track to " << track->get_title().toStdString() << std::endl;

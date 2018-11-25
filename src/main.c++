@@ -18,6 +18,12 @@
 
 using nlohmann::json;
 
+/**
+ * @brief main Main function, creates objects and starts up GUI
+ * @param argv
+ * @param args
+ * @return QApplication
+ */
 int main(int argv, char **args) {
     QApplication application(argv, args);
 

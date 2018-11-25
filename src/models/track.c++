@@ -77,9 +77,9 @@ QString Track::length_to_str(int length) {
     if(hours != 0) {
         if(hours < 10) {
             readable_time.append("0");
-            readable_time.append(hours);
+            readable_time.append(QString::number(hours));
         } else {
-            readable_time.append(hours);
+            readable_time.append(QString::number(hours));
         }
         readable_time.append(":");
     }
@@ -87,9 +87,9 @@ QString Track::length_to_str(int length) {
     if(minutes != 0) {
         if(minutes < 10) {
             readable_time.append("0");
-            readable_time.append(minutes);
+            readable_time.append(QString::number(minutes));
         } else {
-            readable_time.append(minutes);
+            readable_time.append(QString::number(minutes));
         }
         readable_time.append(":");
     }
@@ -97,9 +97,9 @@ QString Track::length_to_str(int length) {
     if(seconds != 0) {
         if(seconds < 10) {
             readable_time.append("0");
-            readable_time.append(seconds);
+            readable_time.append(QString::number(seconds));
         } else {
-            readable_time.append(seconds);
+            readable_time.append(QString::number(seconds));
         }
     } else {
         readable_time.append("00:00");

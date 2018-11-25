@@ -29,6 +29,9 @@
     #include <unistd.h>
 #endif
 
+/**
+ * @brief The MainWindow class contains the information to create draw the window. It also communicates with the websocket class.
+ */
 class MainWindow : public QWidget {
     Q_OBJECT
     
@@ -50,8 +53,10 @@ class MainWindow : public QWidget {
         
         QGroupBox topBox;
         QPushButton previousSong;
-        QPushButton togglePlay;        //QListView playlistView;
-
+        QPushButton togglePlay;
+        QLabel title;
+        QLabel album;
+        QLabel artist;
         QPushButton nextSong;
         QLineEdit searchInput;
         QPushButton searchBtn;
@@ -60,12 +65,12 @@ class MainWindow : public QWidget {
 
         QPixmap coverImage;
         QLabel coverLabel;
-        QLabel title;
-        QLabel album;
-        QLabel artist;
 
         Playlist playlistModel;
         QTableView playlistView;
+
+        Playlist searchModel;
+        QTableView searchView;
 
         QGroupBox bottomBox;
         QLabel connectionStatusLabel;
