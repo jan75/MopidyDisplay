@@ -25,6 +25,7 @@ HEADERS += src/messagehandler.h++
 HEADERS += src/ws_client_qt.h++
 HEADERS += src/models/track.h++
 HEADERS += src/models/playlist.h++
+HEADERS += src/widgets/resulttableview.h++
 
 SOURCES += src/main.c++
 SOURCES += src/mainwindow.c++
@@ -32,3 +33,4 @@ SOURCES += src/messagehandler.c++
 SOURCES += src/ws_client_qt.c++
 SOURCES += src/models/track.c++
 SOURCES += src/models/playlist.c++
+SOURCES += src/widgets/resulttableview.c++

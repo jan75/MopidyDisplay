@@ -57,21 +57,19 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
 
     // SEARCH LAYOUT
     QVBoxLayout *searchLayout = new QVBoxLayout;
-    searchView.verticalHeader()->setVisible(false);
     searchView.setModel(&searchModel);
     searchLayout->addWidget(&searchView);
 
     // PLAYLIST LAYOUT
     QVBoxLayout *playlistLayout = new QVBoxLayout;
-    playlistView.verticalHeader()->setVisible(false);
     playlistView.setModel(&playlistModel);
     playlistLayout->addWidget(&playlistView);
 
 
     // CONTENT LAYOUT
     QHBoxLayout *contentLayout = new QHBoxLayout;
-    contentLayout->addItem(playlistLayout);
     contentLayout->addItem(searchLayout);
+    contentLayout->addItem(playlistLayout);
     contentBox.setLayout(contentLayout);
 
     // TEXT AREA

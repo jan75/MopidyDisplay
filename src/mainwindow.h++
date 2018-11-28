@@ -20,6 +20,7 @@
 
 #include "models/track.h++"
 #include "models/playlist.h++"
+#include "widgets/resulttableview.h++"
 #include "messagehandler.h++"
 #include <json.h++>
 
@@ -67,10 +68,10 @@ class MainWindow : public QWidget {
         QLabel coverLabel;
 
         Playlist playlistModel;
-        QTableView playlistView;
+        ResultTableView playlistView;
 
         Playlist searchModel;
-        QTableView searchView;
+        ResultTableView searchView;
 
         QGroupBox bottomBox;
         QLabel connectionStatusLabel;
