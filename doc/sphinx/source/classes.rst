@@ -7,3 +7,5 @@ Classes
     code/messagehandler
     code/websocketclientqt
     code/models
+    code/widgets
+    

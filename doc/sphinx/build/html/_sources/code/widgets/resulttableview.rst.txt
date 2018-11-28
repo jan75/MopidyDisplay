@@ -1,0 +1,3 @@
+ResultTableView
+===============
+.. doxygenclass:: ResultTableView

@@ -1,7 +1,0 @@
-Classes
-=======
-.. toctree::
-    :maxdepth: 5
-    :caption: Classes:
-
-    code/mainwindow
