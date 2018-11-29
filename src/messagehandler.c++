@@ -84,14 +84,15 @@ void MessageHandler::search_artists(QString artist) {
 
     int id = get_id("search");
     json queryParams;
-    queryParams["artist"] = "";
+    queryParams["any"] = "";
 
     json queryJson;
     queryJson["jsonrpc"] = "2.0";
     queryJson["id"] = id;
-    queryJson["method"] = "core.library.find_exact";
+    queryJson["method"] = "core.library.search";
     queryJson["params"] = queryParams;
-    queryJson["params"]["artist"] = artist.toStdString();
+    queryJson["params"]["any"] = artist.toStdString();
+
 
     send_json(queryJson);
 }

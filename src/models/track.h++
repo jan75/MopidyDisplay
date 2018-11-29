@@ -1,4 +1,4 @@
-// track.hpp
+// track.h++
 #ifndef H_TRACK
 #define H_TRACK
 #include <QString>

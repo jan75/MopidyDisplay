@@ -1,4 +1,4 @@
-// playlist.hpp
+// playlist.h++
 #ifndef H_PLAYLIST
 #define H_PLAYLIST
 #include <QString>
