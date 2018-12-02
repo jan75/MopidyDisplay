@@ -44,7 +44,7 @@ void MessageHandler::handle_message(QString msg) {
         }
 
         if(type == "search") {
-
+            parse_search_results(msgJson);
         }
 
     }
@@ -144,6 +144,14 @@ void MessageHandler::parse_playlist_response(nlohmann::json msgJson) {
     }
 
     emit playlist_change(playlistList);
+}
+
+void MessageHandler::parse_search_results(nlohmann::json msgJson) {
+    std::set<std::shared_ptr<Artist>> artistSet;
+    std::set<std::shared_ptr<Album>> albumSet;
+    std::vector<std::shared_ptr<Track>> trackList;
+
+    emit search_results(artistSet, albumSet, trackList);
 }
 
 std::shared_ptr<Track> MessageHandler::parse_mopidy_track_model(nlohmann::json json) {

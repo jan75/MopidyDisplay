@@ -20,6 +20,10 @@
 
 #include "models/track.h++"
 #include "models/playlist.h++"
+#include "models/artistsearchresults.h++"
+#include "models/albumsearchresults.h++"
+#include "models/tracksearchresults.h++"
+#include "widgets/playlisttableview.h++"
 #include "widgets/resulttableview.h++"
 #include "messagehandler.h++"
 #include <json.h++>
@@ -68,10 +72,14 @@ class MainWindow : public QWidget {
         QLabel coverLabel;
 
         Playlist playlistModel;
-        ResultTableView playlistView;
+        PlaylistTableView playlistView;
 
-        Playlist searchModel;
-        ResultTableView searchView;
+        ArtistSearchResults artistSearchModel;
+        AlbumSearchResults albumSearchModel;
+        TrackSearchResults trackSearchModel;
+        ResultTableView artistSearchView;
+        ResultTableView albumSearchView;
+        ResultTableView trackSearchView;
 
         QGroupBox bottomBox;
         QLabel connectionStatusLabel;
@@ -87,6 +95,7 @@ class MainWindow : public QWidget {
         void quit_application();
         void search_artist();
         void replace_playlist(std::vector<std::shared_ptr<Track>> playlist);
+        void replace_searchresults(std::set<std::shared_ptr<Artist>> artists, std::set<std::shared_ptr<Album>> albums, std::vector<std::shared_ptr<Track>> tracks);
         void set_current_song(std::shared_ptr<Track> track);
         void update_label_text(nlohmann::json msg);
         

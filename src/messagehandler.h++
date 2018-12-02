@@ -9,9 +9,12 @@
 #include <QHash>
 #include <memory>
 #include <map>
+#include <set>
 
 //#include "mainwindow.hpp"
 #include "ws_client_qt.h++"
+#include "models/artist.h++"
+#include "models/album.h++"
 #include "models/track.h++"
 #include <json.h++>
 
@@ -52,6 +55,7 @@ class MessageHandler : public QObject {
     signals:
         void track_change(std::shared_ptr<Track> track);
         void playlist_change(std::vector<std::shared_ptr<Track>> playlist);
+        void search_results(std::set<std::shared_ptr<Artist>> artists, std::set<std::shared_ptr<Album>> albums, std::vector<std::shared_ptr<Track>> tracks);
         void text_msg_received(nlohmann::json msg);
         void update_conn_label(QString msg);
         

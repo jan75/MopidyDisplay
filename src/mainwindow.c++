@@ -57,8 +57,12 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
 
     // SEARCH LAYOUT
     QVBoxLayout *searchLayout = new QVBoxLayout;
-    searchView.setModel(&searchModel);
-    searchLayout->addWidget(&searchView);
+    artistSearchView.setModel(&artistSearchModel);
+    albumSearchView.setModel(&albumSearchModel);
+    trackSearchView.setModel(&trackSearchModel);
+    searchLayout->addWidget(&artistSearchView);
+    searchLayout->addWidget(&albumSearchView);
+    searchLayout->addWidget(&trackSearchView);
 
     // PLAYLIST LAYOUT
     QVBoxLayout *playlistLayout = new QVBoxLayout;
@@ -99,6 +103,7 @@ MainWindow::MainWindow(MessageHandler *messageHandler) {
     connect(&connectWSBtn, &QPushButton::clicked, messageHandler, &MessageHandler::connect_ws);
     connect(messageHandler, &MessageHandler::track_change, this, &MainWindow::set_current_song);
     connect(messageHandler, &MessageHandler::playlist_change, this, &MainWindow::replace_playlist);
+    connect(messageHandler, &MessageHandler::search_results, this, &MainWindow::replace_searchresults);
 };
 
 void MainWindow::closeEvent(QCloseEvent*) {
@@ -137,4 +142,37 @@ void MainWindow::set_current_song(std::shared_ptr<Track> track) {
 void MainWindow::replace_playlist(std::vector<std::shared_ptr<Track>> playlist) {
     playlistModel.clearItems();
     this->playlistModel.addTracks(playlist);
+}
+
+void MainWindow::replace_searchresults(std::set<std::shared_ptr<Artist>> artists, std::set<std::shared_ptr<Album>> albums, std::vector<std::shared_ptr<Track>> tracks) {
+    artistSearchModel.clearItems();
+
+    // Mocking data
+    std::shared_ptr<Artist> artist1 = std::make_shared<Artist>("Nightwish");
+    std::shared_ptr<Artist> artist2 = std::make_shared<Artist>("Ensiferum");
+    std::shared_ptr<Album> album1 = std::make_shared<Album>("Once");
+    std::shared_ptr<Album> album2 = std::make_shared<Album>("Devi'ls Got a new Disguise");
+    std::shared_ptr<Track> track1 = std::make_shared<Track>("Track 1", "Album", "Nightwish", 3600, 1);
+    std::shared_ptr<Track> track2 = std::make_shared<Track>("Track 2", "Album", "Nightwish", 3600, 1);
+    std::shared_ptr<Track> track3 = std::make_shared<Track>("Track 3", "Album", "Nightwish", 3600, 1);
+    std::shared_ptr<Track> track4 = std::make_shared<Track>("Track 4", "Album", "Nightwish", 3600, 1);
+    std::shared_ptr<Track> track5 = std::make_shared<Track>("Track 5", "Album", "Nightwish", 3600, 1);
+    std::shared_ptr<Track> track6 = std::make_shared<Track>("Track 6", "Album", "Nightwish", 3600, 1);
+    std::shared_ptr<Track> track7 = std::make_shared<Track>("Track 7", "Album", "Nightwish", 3600, 1);
+    std::shared_ptr<Track> track8 = std::make_shared<Track>("Track 8", "Album", "Nightwish", 3600, 1);
+    std::shared_ptr<Track> track9 = std::make_shared<Track>("Track 9", "Album", "Nightwish", 3600, 1);
+
+    this->artistSearchModel.addArtist(artist1);
+    this->artistSearchModel.addArtist(artist2);
+    this->albumSearchModel.addAlbum(album1);
+    this->albumSearchModel.addAlbum(album2);
+    this->trackSearchModel.addTrack(track1);
+    this->trackSearchModel.addTrack(track2);
+    this->trackSearchModel.addTrack(track3);
+    this->trackSearchModel.addTrack(track4);
+    this->trackSearchModel.addTrack(track5);
+    this->trackSearchModel.addTrack(track6);
+    this->trackSearchModel.addTrack(track7);
+    this->trackSearchModel.addTrack(track8);
+    this->trackSearchModel.addTrack(track9);
 }

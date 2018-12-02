@@ -2,8 +2,9 @@
 #include "resulttableview.h++"
 
 ResultTableView::ResultTableView(QWidget *parent) : QTableView(parent) {
-    this->horizontalHeader()->setStretchLastSection(true);
     this->verticalHeader()->setVisible(false);
+    this->horizontalHeader()->setVisible(false);
+    this->setShowGrid(false);
 }
 
 ResultTableView::~ResultTableView() {
@@ -18,6 +19,5 @@ void ResultTableView::resizeEvent(QResizeEvent *event) {
 
 void ResultTableView::resizeColumns() {
     this->setColumnWidth(0, this->width() / 10 * 1);
-    this->setColumnWidth(1, this->width() / 10 * 6);
-    this->setColumnWidth(2, this->width() / 10 * 3);
+    this->setColumnWidth(1, this->width() / 10 * 9);
 }
