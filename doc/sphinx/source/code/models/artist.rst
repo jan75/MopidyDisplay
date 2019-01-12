@@ -1,0 +1,3 @@
+Artist
+======
+.. doxygenclass:: Artist

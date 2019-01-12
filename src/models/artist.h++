@@ -14,7 +14,10 @@ class Artist {
 
         void set_name(QString name);
         QString get_name();
-        
+
+        bool compare(Artist artist);
+        bool compare(std::shared_ptr<Artist> artist);
+
     private:
         QString name;
 };

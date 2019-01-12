@@ -6,7 +6,7 @@ AlbumSearchResults::AlbumSearchResults(QObject *parent) : QAbstractTableModel(pa
 }
 
 int AlbumSearchResults::rowCount(const QModelIndex&) const {
-    return albumSet.size();
+    return albumList.size();
 }
 
 int AlbumSearchResults::columnCount(const QModelIndex&) const {
@@ -20,7 +20,7 @@ QVariant AlbumSearchResults::headerData(int section, Qt::Orientation orientation
 
     if(orientation == Qt::Horizontal) {
         switch(section)  {
-            case 0: return QStringLiteral("Icon");
+            case 0: return QStringLiteral("Artist");
             case 1: return QStringLiteral("Title");
             default: return QStringLiteral("Column %1").arg(section);
         }
@@ -45,35 +45,41 @@ QVariant AlbumSearchResults::data(const QModelIndex &index, int role) const {
 
     int row = index.row();
     int column = index.column();
-    std::shared_ptr<Album> album = *std::next(albumSet.begin(), row - 1);
+    std::shared_ptr<Album> album = albumList.at(row);
     if(column == 0) {
-        return "#";
+        return album->get_album_artist()->get_name();
     } else if(column == 1) {
-        return album.get()->get_name();
+        return album->get_name();
     } else {
         return QVariant();
     }
 }
 
 void AlbumSearchResults::addAlbum(std::shared_ptr<Album> &album) {
-    int first = albumSet.size();
+    for(std::shared_ptr<Album> tmpAlbum: albumList) {
+        if(album->compare(tmpAlbum)) {
+            return;
+        }
+    }
+
+    int first = albumList.size();
 
     QModelIndex *qModelIndexParent = new QModelIndex();
 
     beginInsertRows(*qModelIndexParent, first, first);
-    albumSet.insert(album);
+    albumList.push_back(album);
     endInsertRows();
 
     delete qModelIndexParent;
 }
 
 void AlbumSearchResults::clearItems() {
-    int last = albumSet.size();
+    int last = albumList.size();
 
     QModelIndex *qModelIndexParent = new QModelIndex();
 
     beginRemoveRows(*qModelIndexParent, 0, last);
-    albumSet.clear();
+    albumList.clear();
     endRemoveRows();
 
     delete qModelIndexParent;

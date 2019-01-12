@@ -1,10 +1,19 @@
 // track.c++
 #include "track.h++"
 
-Track::Track(QString title, QString album, QString artist, int length, int track_number) {
+Track::Track(QString title, std::shared_ptr<Album> album, std::vector<std::shared_ptr<Artist>> artists, int length, int track_number) {
     this->title = title;
     this->album = album;
-    this->artist = artist;
+    this->artists = artists;
+    this->length = length;
+    this->track_number = track_number;
+    this->length_readable = length_to_str(length);
+}
+
+Track::Track(QString title, std::shared_ptr<Album> album, std::shared_ptr<Artist> artist, int length, int track_number) {
+    this->title = title;
+    this->album = album;
+    this->artists.push_back(artist);
     this->length = length;
     this->track_number = track_number;
     this->length_readable = length_to_str(length);
@@ -14,12 +23,12 @@ void Track::set_title(QString title) {
     this->title = title;
 }
 
-void Track::set_album(QString album) {
+void Track::set_album(std::shared_ptr<Album> album) {
     this->album = album;
 }
 
-void Track::set_artist(QString artist) {
-    this->artist = artist;
+void Track::set_artists(std::vector<std::shared_ptr<Artist>> artists) {
+    this->artists = artists;
 }
 
 void Track::set_length(int length) {
@@ -35,12 +44,16 @@ QString Track::get_title() {
     return this->title;
 }
 
-QString Track::get_album() {
+std::shared_ptr<Album> Track::get_album() {
     return this->album;
 }
 
-QString Track::get_artist() {
-    return this->artist;
+std::vector<std::shared_ptr<Artist>> Track::get_artists() {
+    return this->artists;
+}
+
+void Track::add_artist(std::shared_ptr<Artist>) {
+
 }
 
 int Track::get_length() {
@@ -56,7 +69,7 @@ int Track::get_track_number() {
 }
 
 void Track::print() {
-    std::cout << this->title.toStdString() << " - " << this->album.toStdString() << " - " << this->artist.toStdString() << std::endl;
+    std::cout << this->title.toStdString() << std::endl;
 }
 
 QString Track::length_to_str(int length) {

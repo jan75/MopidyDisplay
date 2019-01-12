@@ -135,8 +135,8 @@ void MainWindow::set_current_song(std::shared_ptr<Track> track) {
     this->track = track;
     std::cout << "Changing track to " << track->get_title().toStdString() << std::endl;
     title.setText(track->get_title());
-    album.setText(track->get_album());
-    artist.setText(track->get_artist());
+    //album.setText(track->get_album());
+    //artist.setText(track->get_artist());
 }
 
 void MainWindow::replace_playlist(std::vector<std::shared_ptr<Track>> playlist) {
@@ -146,26 +146,37 @@ void MainWindow::replace_playlist(std::vector<std::shared_ptr<Track>> playlist) 
 
 void MainWindow::replace_searchresults(std::set<std::shared_ptr<Artist>> artists, std::set<std::shared_ptr<Album>> albums, std::vector<std::shared_ptr<Track>> tracks) {
     artistSearchModel.clearItems();
+    albumSearchModel.clearItems();
+    trackSearchModel.clearItems();
 
-    // Mocking data
     std::shared_ptr<Artist> artist1 = std::make_shared<Artist>("Nightwish");
     std::shared_ptr<Artist> artist2 = std::make_shared<Artist>("Ensiferum");
-    std::shared_ptr<Album> album1 = std::make_shared<Album>("Once");
-    std::shared_ptr<Album> album2 = std::make_shared<Album>("Devi'ls Got a new Disguise");
-    std::shared_ptr<Track> track1 = std::make_shared<Track>("Track 1", "Album", "Nightwish", 3600, 1);
-    std::shared_ptr<Track> track2 = std::make_shared<Track>("Track 2", "Album", "Nightwish", 3600, 1);
-    std::shared_ptr<Track> track3 = std::make_shared<Track>("Track 3", "Album", "Nightwish", 3600, 1);
-    std::shared_ptr<Track> track4 = std::make_shared<Track>("Track 4", "Album", "Nightwish", 3600, 1);
-    std::shared_ptr<Track> track5 = std::make_shared<Track>("Track 5", "Album", "Nightwish", 3600, 1);
-    std::shared_ptr<Track> track6 = std::make_shared<Track>("Track 6", "Album", "Nightwish", 3600, 1);
-    std::shared_ptr<Track> track7 = std::make_shared<Track>("Track 7", "Album", "Nightwish", 3600, 1);
-    std::shared_ptr<Track> track8 = std::make_shared<Track>("Track 8", "Album", "Nightwish", 3600, 1);
-    std::shared_ptr<Track> track9 = std::make_shared<Track>("Track 9", "Album", "Nightwish", 3600, 1);
+
+    std::shared_ptr<Album> album1 = std::make_shared<Album>("Once", artist1);
+    std::shared_ptr<Album> album2 = std::make_shared<Album>("Devil's Got a new Disguise", artist2);
+    std::shared_ptr<Album> album3 = std::make_shared<Album>("Once", artist1);
+    std::shared_ptr<Album> album4 = std::make_shared<Album>("Once2", artist1);
+    std::shared_ptr<Album> album5 = std::make_shared<Album>("Once", artist2);
+    std::shared_ptr<Track> track1 = std::make_shared<Track>("Track 1", album1, artist1, 3600, 1);
+    std::shared_ptr<Track> track2 = std::make_shared<Track>("Track 2", album1, artist1, 3600, 1);
+    std::shared_ptr<Track> track3 = std::make_shared<Track>("Track 3", album1, artist1, 3600, 1);
+    std::shared_ptr<Track> track4 = std::make_shared<Track>("Track 4", album1, artist1, 3600, 1);
+    std::shared_ptr<Track> track5 = std::make_shared<Track>("Track 5", album2, artist2, 3600, 1);
+    std::shared_ptr<Track> track6 = std::make_shared<Track>("Track 6", album2, artist2, 3600, 1);
+    std::shared_ptr<Track> track7 = std::make_shared<Track>("Track 7", album2, artist2, 3600, 1);
+    std::shared_ptr<Track> track8 = std::make_shared<Track>("Track 8", album2, artist2, 3600, 1);
+    std::shared_ptr<Track> track9 = std::make_shared<Track>("Track 9", album2, artist2, 3600, 1);
+
+    album1->set_album_artist(artist1);
+    album2->set_album_artist(artist2);
 
     this->artistSearchModel.addArtist(artist1);
     this->artistSearchModel.addArtist(artist2);
     this->albumSearchModel.addAlbum(album1);
     this->albumSearchModel.addAlbum(album2);
+    this->albumSearchModel.addAlbum(album3);
+    this->albumSearchModel.addAlbum(album4);
+    this->albumSearchModel.addAlbum(album5);
     this->trackSearchModel.addTrack(track1);
     this->trackSearchModel.addTrack(track2);
     this->trackSearchModel.addTrack(track3);
@@ -175,4 +186,16 @@ void MainWindow::replace_searchresults(std::set<std::shared_ptr<Artist>> artists
     this->trackSearchModel.addTrack(track7);
     this->trackSearchModel.addTrack(track8);
     this->trackSearchModel.addTrack(track9);
+
+    /*
+    for(std::shared_ptr<Artist> artist: artists) {
+        this->artistSearchModel.addArtist(artist);
+    }
+
+    for(std::shared_ptr<Album> album: albums) {
+        this->albumSearchModel.addAlbum(album);
+    }
+
+    this->trackSearchModel.addTracks(tracks);
+    */
 }

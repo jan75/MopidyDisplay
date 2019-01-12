@@ -3,8 +3,8 @@
 
 ResultTableView::ResultTableView(QWidget *parent) : QTableView(parent) {
     this->verticalHeader()->setVisible(false);
-    this->horizontalHeader()->setVisible(false);
-    this->setShowGrid(false);
+    //this->horizontalHeader()->setVisible(false);
+    //this->setShowGrid(false);
 }
 
 ResultTableView::~ResultTableView() {

@@ -7,6 +7,7 @@
 #include "artist.h++"
 #include "album.h++"
 #include "track.h++"
+#include <functional>
 #include <memory>
 #include <iostream>
 #include <set>
@@ -15,7 +16,7 @@ class ArtistSearchResults : public QAbstractTableModel {
     Q_OBJECT
 
     private:
-        std::set<std::shared_ptr<Artist>> artistSet;
+        std::vector<std::shared_ptr<Artist>> artistList;
 
     public:
         ArtistSearchResults(QObject *parent = nullptr);

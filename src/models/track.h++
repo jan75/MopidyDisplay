@@ -8,29 +8,36 @@
 #include <iostream>
 #include <json.h++>
 
+class Artist;
+class Album;
+
 class Track {
     public:
-        Track(QString title, QString album, QString artist, int length, int track_number);
+        Track(QString title, std::shared_ptr<Album> album, std::vector<std::shared_ptr<Artist>> artists, int length, int track_number);
+        Track(QString title, std::shared_ptr<Album> album, std::shared_ptr<Artist> artist, int length, int track_number);
 
         void print();
 
         void set_title(QString title);
-        void set_album(QString album);
-        void set_artist(QString artist);
+        void set_album(std::shared_ptr<Album> album);
+        void set_artists(std::vector<std::shared_ptr<Artist>> artists);
         void set_length(int length);
         void set_track_number(int track_number);
         
+        void add_artist(std::shared_ptr<Artist> artist);
+        void remove_artist(std::shared_ptr<Artist> artist);
+
         QString get_title();
-        QString get_album();
-        QString get_artist();
+        std::shared_ptr<Album> get_album();
+        std::vector<std::shared_ptr<Artist>> get_artists();
         int get_length();
         QString get_length_readable();
         int get_track_number();
         
     private:
         QString title;
-        QString album;
-        QString artist;
+        std::shared_ptr<Album> album;
+        std::vector<std::shared_ptr<Artist>> artists;
         int length;
         QString length_readable;
         int track_number;

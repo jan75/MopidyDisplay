@@ -6,7 +6,7 @@ ArtistSearchResults::ArtistSearchResults(QObject *parent) : QAbstractTableModel(
 }
 
 int ArtistSearchResults::rowCount(const QModelIndex&) const {
-    return artistSet.size();
+    return artistList.size();
 }
 
 int ArtistSearchResults::columnCount(const QModelIndex&) const {
@@ -45,35 +45,47 @@ QVariant ArtistSearchResults::data(const QModelIndex &index, int role) const {
 
     int row = index.row();
     int column = index.column();
-    std::shared_ptr<Artist> artist = *std::next(artistSet.begin(), row - 1);
+    std::shared_ptr<Artist> artist = artistList.at(row);
     if(column == 0) {
         return "#";
     } else if(column == 1) {
-        return artist.get()->get_name();
+        return artist->get_name();
     } else {
         return QVariant();
     }
 }
 
+
+/**
+ * @brief ArtistSearchResults::addArtist extends the search results with an artist object. Checks if the artist already exists.
+ * If it already exists the artist is not added.
+ * @param artist
+ */
 void ArtistSearchResults::addArtist(std::shared_ptr<Artist> &artist) {
-    int first = artistSet.size();
+    for(std::shared_ptr<Artist> tmpArtist: artistList) {
+        if(artist->compare(tmpArtist)) {
+            return;
+        }
+    }
+
+    int first = artistList.size();
 
     QModelIndex *qModelIndexParent = new QModelIndex();
 
     beginInsertRows(*qModelIndexParent, first, first);
-    artistSet.insert(artist);
+    artistList.push_back(artist);
     endInsertRows();
 
     delete qModelIndexParent;
 }
 
 void ArtistSearchResults::clearItems() {
-    int last = artistSet.size();
+    int last = artistList.size();
 
     QModelIndex *qModelIndexParent = new QModelIndex();
 
     beginRemoveRows(*qModelIndexParent, 0, last);
-    artistSet.clear();
+    artistList.clear();
     endRemoveRows();
 
     delete qModelIndexParent;

@@ -43,11 +43,13 @@ QVariant TrackSearchResults::data(const QModelIndex &index, int role) const {
         return QVariant();
     }
 
-    std::shared_ptr<Track> track = trackList.at(index.row());
-    if(index.column() == 0) {
-        return track.get()->get_track_number();
-    } else if(index.column() == 1) {
-        return track.get()->get_title();
+    int row = index.row();
+    int column = index.column();
+    std::shared_ptr<Track> track = trackList.at(row);
+    if(column == 0) {
+        return track->get_track_number();
+    } else if(column == 1) {
+        return track->get_title();
     } else {
         return QVariant();
     }
@@ -56,17 +58,11 @@ QVariant TrackSearchResults::data(const QModelIndex &index, int role) const {
 void TrackSearchResults::addTrack(std::shared_ptr<Track> &track) {
     int first = trackList.size();
 
-    std::cout << "size: " << trackList.size() << std::endl;
-
     QModelIndex *qModelIndexParent = new QModelIndex();
-
-    std::cout << track.get()->get_title().toStdString() << std::endl;
 
     beginInsertRows(*qModelIndexParent, first, first);
     trackList.push_back(track);
     endInsertRows();
-
-    std::cout << "size: " << trackList.size() << std::endl;
 
     delete qModelIndexParent;
 }
@@ -94,7 +90,6 @@ void TrackSearchResults::clearItems() {
     beginRemoveRows(*qModelIndexParent, 0, last);
     trackList.clear();
     endRemoveRows();
-    std::cout << trackList.size() << std::endl;
 
     delete qModelIndexParent;
 }

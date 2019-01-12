@@ -15,7 +15,7 @@ class AlbumSearchResults : public QAbstractTableModel {
     Q_OBJECT
 
     private:
-        std::set<std::shared_ptr<Album>> albumSet;
+        std::vector<std::shared_ptr<Album>> albumList;
 
     public:
         AlbumSearchResults(QObject *parent = nullptr);
