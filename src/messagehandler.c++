@@ -55,14 +55,18 @@ void MessageHandler::handle_event(json msgJson) {
     // stream_title_changed
 
     if(eventStr == "track_playback_started") {
-        QString title = QString::fromStdString(msgJson["tl_track"]["track"]["name"]);
-        QString album = QString::fromStdString(msgJson["tl_track"]["track"]["album"]["name"]);
-        QString artist = QString::fromStdString(msgJson["tl_track"]["track"]["album"]["artists"][0]["name"]);
+        /*
+        QString titleStr = QString::fromStdString(msgJson["tl_track"]["track"]["name"]);
+        QString albumStr = QString::fromStdString(msgJson["tl_track"]["track"]["album"]["name"]);
+        QString artistStr = QString::fromStdString(msgJson["tl_track"]["track"]["album"]["artists"][0]["name"]);
         int length = msgJson["tl_track"]["track"]["length"];
         int track_number = msgJson["tl_track"]["track"]["track_no"];
 
-        std::shared_ptr<Track> track = std::make_shared<Track>(title, album, artist, length, track_number);
+        std::shared_ptr<Artist> artist = std::make_shared<Artist>(artistStr);
+        std::shared_ptr<Album> album = std::make_shared<Album>(albumStr, artist);
+        std::shared_ptr<Track> track = std::make_shared<Track>(titleStr, album, artist, length, track_number);
         emit track_change(track);
+        */
     }
 
     if(eventStr == "tracklist_changed") {
@@ -147,32 +151,86 @@ void MessageHandler::parse_playlist_response(nlohmann::json msgJson) {
 }
 
 void MessageHandler::parse_search_results(nlohmann::json msgJson) {
-    std::set<std::shared_ptr<Artist>> artistSet;
-    std::set<std::shared_ptr<Album>> albumSet;
+    //std::set<std::shared_ptr<Artist>, decltype(Artist::artist_compare)> artistSet(Artist::artist_compare);
+    std::set<std::shared_ptr<Artist>, decltype(&Artist::artist_compare)> artistSet(&Artist::artist_compare);
+    std::set<std::shared_ptr<Album>, decltype(&Album::album_compare)> albumSet(&Album::album_compare);
+    //std::set<std::shared_ptr<Album>> albumSet;
     std::vector<std::shared_ptr<Track>> trackList;
+
+    nlohmann::json type = msgJson["result"][0]["__model__"];
+    if(type != "SearchResult") {
+        return;
+    }
+
+    nlohmann::json tracks = msgJson["result"][0]["tracks"];
+    for(nlohmann::json &element: tracks) {
+        if(element["__model__"] == "Track") {
+            std::shared_ptr<Track> tmpTrack = parse_mopidy_track_model(element);
+            trackList.push_back(tmpTrack);
+
+            std::shared_ptr<Album> tmpAlbum = tmpTrack->get_album();
+            albumSet.insert(tmpAlbum);
+
+            for(std::shared_ptr<Artist> tmpArtist: tmpTrack->get_artists()) {
+                artistSet.insert(tmpArtist);
+            }
+        }
+    }
 
     emit search_results(artistSet, albumSet, trackList);
 }
 
 std::shared_ptr<Track> MessageHandler::parse_mopidy_track_model(nlohmann::json json) {
-    std::string title = json["name"];
-    std::string album = json["album"]["name"];
-    std::string artist;
-    nlohmann::json artists = json["artists"];
-    if(artists.size() > 1) {
-        std::cout << "Multiple artists, picking first: " << artists[0]["name"] << std::endl;
-    } else if(artists.size() == 0) {
-        std::cout << "No artists found" << std::endl;
-    } else {
-        artist = artists[0]["name"];
-    }
+    nlohmann::json album_json = json["album"];
+    nlohmann::json artists_json = json["artists"];
+    std::shared_ptr<Album> album_obj = parse_mopidy_album_model(album_json);
+    std::vector<std::shared_ptr<Artist>> artists_obj = parse_mopidy_artist_model(artists_json);
 
+    std::string title = json["name"];
     int length = json["length"];
     int track_number = json["track_no"];
 
     QString titleQ = QString::fromStdString(title);
-    QString albumQ = QString::fromStdString(album);
-    QString artistQ = QString::fromStdString(artist);
 
-    return std::make_shared<Track>(titleQ, albumQ, artistQ, length, track_number);
+    return std::make_shared<Track>(titleQ, album_obj, artists_obj, length, track_number);
+}
+
+std::vector<std::shared_ptr<Artist>> MessageHandler::parse_mopidy_artist_model(nlohmann::json artists) {
+    std::vector<std::shared_ptr<Artist>> artists_obj;
+    QString name;
+
+    if(artists.size() == 0) {
+        std::cout << "No artists found" << std::endl;
+    }
+
+    for(nlohmann::json &artist: artists) {
+        if(artist["__model__"] == "Artist") {
+            name = QString::fromStdString(artist["name"].dump());
+            artists_obj.push_back(std::make_shared<Artist>(name));
+        } else {
+            std::cout << "Something went wrong during parsing of an artist model" << std::endl;
+            std::cout << artist.dump(2) << std::endl;
+        }
+    }
+
+    return artists_obj;
+}
+
+std::shared_ptr<Album> MessageHandler::parse_mopidy_album_model(nlohmann::json album) {
+    QString name, date;
+    int num_tracks, num_discs;
+    std::vector<std::shared_ptr<Artist>> album_artists;
+
+    if(album["__model__"] == "Album") {
+        name = QString::fromStdString(album["name"].dump());
+        num_tracks = std::stoi(album["num_tracks"].dump());
+        num_discs = std::stoi(album["num_discs"].dump());
+        date = QString::fromStdString(album["date"].dump());
+        album_artists = parse_mopidy_artist_model(album["artists"]);
+    }  else {
+        std::cout << "Something went wrong during parsing of an album model" << std::endl;
+        std::cout << album.dump(2) << std::endl;
+    }
+
+    return std::make_shared<Album>(name, album_artists);
 }

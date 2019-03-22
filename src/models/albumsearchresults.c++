@@ -10,7 +10,7 @@ int AlbumSearchResults::rowCount(const QModelIndex&) const {
 }
 
 int AlbumSearchResults::columnCount(const QModelIndex&) const {
-    return 2;
+    return 1;
 }
 
 QVariant AlbumSearchResults::headerData(int section, Qt::Orientation orientation, int role) const {
@@ -21,7 +21,6 @@ QVariant AlbumSearchResults::headerData(int section, Qt::Orientation orientation
     if(orientation == Qt::Horizontal) {
         switch(section)  {
             case 0: return QStringLiteral("Artist");
-            case 1: return QStringLiteral("Title");
             default: return QStringLiteral("Column %1").arg(section);
         }
     } else {
@@ -47,8 +46,7 @@ QVariant AlbumSearchResults::data(const QModelIndex &index, int role) const {
     int column = index.column();
     std::shared_ptr<Album> album = albumList.at(row);
     if(column == 0) {
-        return album->get_album_artist()->get_name();
-    } else if(column == 1) {
+        //return album->get_album_artists()->get_name();
         return album->get_name();
     } else {
         return QVariant();

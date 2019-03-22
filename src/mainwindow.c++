@@ -144,11 +144,25 @@ void MainWindow::replace_playlist(std::vector<std::shared_ptr<Track>> playlist) 
     this->playlistModel.addTracks(playlist);
 }
 
-void MainWindow::replace_searchresults(std::set<std::shared_ptr<Artist>> artists, std::set<std::shared_ptr<Album>> albums, std::vector<std::shared_ptr<Track>> tracks) {
+void MainWindow::replace_searchresults(std::set<std::shared_ptr<Artist>, decltype(&Artist::artist_compare)> artists,
+                                       std::set<std::shared_ptr<Album>, decltype(&Album::album_compare)> albums,
+                                       std::vector<std::shared_ptr<Track>> tracks) {
     artistSearchModel.clearItems();
     albumSearchModel.clearItems();
     trackSearchModel.clearItems();
 
+    for(std::shared_ptr<Artist> artist: artists) {
+        this->artistSearchModel.addArtist(artist);
+    }
+
+    for(std::shared_ptr<Album> album: albums) {
+        std::cout << album->get_name().toStdString() << std::endl;
+        this->albumSearchModel.addAlbum(album);
+    }
+
+    this->trackSearchModel.addTracks(tracks);
+
+    /*
     std::shared_ptr<Artist> artist1 = std::make_shared<Artist>("Nightwish");
     std::shared_ptr<Artist> artist2 = std::make_shared<Artist>("Ensiferum");
 
@@ -186,16 +200,5 @@ void MainWindow::replace_searchresults(std::set<std::shared_ptr<Artist>> artists
     this->trackSearchModel.addTrack(track7);
     this->trackSearchModel.addTrack(track8);
     this->trackSearchModel.addTrack(track9);
-
-    /*
-    for(std::shared_ptr<Artist> artist: artists) {
-        this->artistSearchModel.addArtist(artist);
-    }
-
-    for(std::shared_ptr<Album> album: albums) {
-        this->albumSearchModel.addAlbum(album);
-    }
-
-    this->trackSearchModel.addTracks(tracks);
     */
 }

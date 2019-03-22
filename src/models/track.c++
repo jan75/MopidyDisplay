@@ -10,17 +10,9 @@ Track::Track(QString title, std::shared_ptr<Album> album, std::vector<std::share
     this->length_readable = length_to_str(length);
 }
 
-Track::Track(QString title, std::shared_ptr<Album> album, std::shared_ptr<Artist> artist, int length, int track_number) {
-    this->title = title;
-    this->album = album;
-    this->artists.push_back(artist);
-    this->length = length;
-    this->track_number = track_number;
-    this->length_readable = length_to_str(length);
-}
-
 void Track::set_title(QString title) {
     this->title = title;
+    calculate_object_hash();
 }
 
 void Track::set_album(std::shared_ptr<Album> album) {
@@ -34,10 +26,12 @@ void Track::set_artists(std::vector<std::shared_ptr<Artist>> artists) {
 void Track::set_length(int length) {
     this->length = length;
     this->length_readable = length_to_str(length);
+    calculate_object_hash();
 }
 
 void Track::set_track_number(int track_number) {
     this->track_number = track_number;
+    calculate_object_hash();
 }
 
 QString Track::get_title() {
@@ -50,10 +44,6 @@ std::shared_ptr<Album> Track::get_album() {
 
 std::vector<std::shared_ptr<Artist>> Track::get_artists() {
     return this->artists;
-}
-
-void Track::add_artist(std::shared_ptr<Artist>) {
-
 }
 
 int Track::get_length() {
@@ -118,4 +108,27 @@ QString Track::length_to_str(int length) {
         readable_time.append("00:00");
     }
     return readable_time;
+}
+
+std::size_t Track::get_object_hash() {
+    if(this->object_hash != 0) {
+        return this->object_hash;
+    } else {
+        calculate_object_hash();
+        return this->object_hash;
+    }
+}
+
+void Track::calculate_object_hash() {
+    std::size_t tmp_hashval = 0;
+    std::hash<std::string> string_hash_function;
+    std::hash<int> int_hash_function;
+
+
+
+    tmp_hashval += string_hash_function(this->title.toStdString());
+    tmp_hashval += int_hash_function(this->length);
+    tmp_hashval += int_hash_function(this->track_number);
+
+    this->object_hash = tmp_hashval;
 }

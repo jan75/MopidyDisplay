@@ -41,6 +41,8 @@ class MessageHandler : public QObject {
         void parse_playlist_response(nlohmann::json msgJson);
 
         std::shared_ptr<Track> parse_mopidy_track_model(nlohmann::json json);
+        std::vector<std::shared_ptr<Artist>> parse_mopidy_artist_model(nlohmann::json json);
+        std::shared_ptr<Album> parse_mopidy_album_model(nlohmann::json json);
         
         void get_playlist();
     
@@ -55,7 +57,9 @@ class MessageHandler : public QObject {
     signals:
         void track_change(std::shared_ptr<Track> track);
         void playlist_change(std::vector<std::shared_ptr<Track>> playlist);
-        void search_results(std::set<std::shared_ptr<Artist>> artists, std::set<std::shared_ptr<Album>> albums, std::vector<std::shared_ptr<Track>> tracks);
+        void search_results(std::set<std::shared_ptr<Artist>, decltype(&Artist::artist_compare)> artists,
+                            std::set<std::shared_ptr<Album>, decltype(&Album::album_compare)> albums,
+                            std::vector<std::shared_ptr<Track>> tracks);
         void text_msg_received(nlohmann::json msg);
         void update_conn_label(QString msg);
         

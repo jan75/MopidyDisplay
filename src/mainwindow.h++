@@ -95,7 +95,9 @@ class MainWindow : public QWidget {
         void quit_application();
         void search_artist();
         void replace_playlist(std::vector<std::shared_ptr<Track>> playlist);
-        void replace_searchresults(std::set<std::shared_ptr<Artist>> artists, std::set<std::shared_ptr<Album>> albums, std::vector<std::shared_ptr<Track>> tracks);
+        void replace_searchresults(std::set<std::shared_ptr<Artist>, decltype(&Artist::artist_compare)> artists,
+                                   std::set<std::shared_ptr<Album>, decltype(&Album::album_compare)> albums,
+                                   std::vector<std::shared_ptr<Track>> tracks);
         void set_current_song(std::shared_ptr<Track> track);
         void update_label_text(nlohmann::json msg);
         

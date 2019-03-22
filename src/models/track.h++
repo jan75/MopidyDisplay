@@ -14,7 +14,6 @@ class Album;
 class Track {
     public:
         Track(QString title, std::shared_ptr<Album> album, std::vector<std::shared_ptr<Artist>> artists, int length, int track_number);
-        Track(QString title, std::shared_ptr<Album> album, std::shared_ptr<Artist> artist, int length, int track_number);
 
         void print();
 
@@ -33,6 +32,8 @@ class Track {
         int get_length();
         QString get_length_readable();
         int get_track_number();
+
+        std::size_t get_object_hash();
         
     private:
         QString title;
@@ -43,6 +44,9 @@ class Track {
         int track_number;
         bool use_album_artist;
 
+        std::size_t object_hash;
+
+        void calculate_object_hash();
         QString length_to_str(int length);
 };
 
