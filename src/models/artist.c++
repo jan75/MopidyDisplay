@@ -3,6 +3,7 @@
 
 Artist::Artist(QString name) {
     this->name = name;
+    calculate_object_hash();
 }
 
 void Artist::set_name(QString name) {
@@ -22,10 +23,10 @@ QString Artist::get_name() {
  */
 bool Artist::compare(Artist artist) {
     //std::cout << "Hash (this): " << this->object_hash << " Hash (other obj): " << artist.get_object_hash() << std::endl;
-    if(this->object_hash == artist.get_object_hash()) {
-        return 1;
+    if(this->get_object_hash() == artist.get_object_hash()) {
+        return true;
     } else {
-        return 0;
+        return false;
     }
 }
 
@@ -52,12 +53,6 @@ void Artist::calculate_object_hash() {
     std::size_t tmp_hashval = 0;
     std::hash<std::string> string_hash_function;
     tmp_hashval = string_hash_function(this->name.toStdString());
-
     this->object_hash = tmp_hashval;
-}
-
-bool Artist::artist_compare(const std::shared_ptr<Artist> &a, const std::shared_ptr<Artist> &b) {
-    //std::cout << a->compare(b) << std::endl;
-    return a->compare(b);
 }
 

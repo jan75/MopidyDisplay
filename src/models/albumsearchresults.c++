@@ -46,7 +46,6 @@ QVariant AlbumSearchResults::data(const QModelIndex &index, int role) const {
     int column = index.column();
     std::shared_ptr<Album> album = albumList.at(row);
     if(column == 0) {
-        //return album->get_album_artists()->get_name();
         return album->get_name();
     } else {
         return QVariant();
@@ -54,12 +53,6 @@ QVariant AlbumSearchResults::data(const QModelIndex &index, int role) const {
 }
 
 void AlbumSearchResults::addAlbum(std::shared_ptr<Album> &album) {
-    for(std::shared_ptr<Album> tmpAlbum: albumList) {
-        if(album->compare(tmpAlbum)) {
-            return;
-        }
-    }
-
     int first = albumList.size();
 
     QModelIndex *qModelIndexParent = new QModelIndex();

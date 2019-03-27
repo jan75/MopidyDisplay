@@ -10,7 +10,7 @@ int ArtistSearchResults::rowCount(const QModelIndex&) const {
 }
 
 int ArtistSearchResults::columnCount(const QModelIndex&) const {
-    return 2;
+    return 1;
 }
 
 QVariant ArtistSearchResults::headerData(int section, Qt::Orientation orientation, int role) const {
@@ -20,8 +20,7 @@ QVariant ArtistSearchResults::headerData(int section, Qt::Orientation orientatio
 
     if(orientation == Qt::Horizontal) {
         switch(section)  {
-            case 0: return QStringLiteral("Icon");
-            case 1: return QStringLiteral("Title");
+            case 0: return QStringLiteral("Artist");
             default: return QStringLiteral("Column %1").arg(section);
         }
     } else {
@@ -47,8 +46,6 @@ QVariant ArtistSearchResults::data(const QModelIndex &index, int role) const {
     int column = index.column();
     std::shared_ptr<Artist> artist = artistList.at(row);
     if(column == 0) {
-        return "#";
-    } else if(column == 1) {
         return artist->get_name();
     } else {
         return QVariant();
@@ -62,12 +59,6 @@ QVariant ArtistSearchResults::data(const QModelIndex &index, int role) const {
  * @param artist
  */
 void ArtistSearchResults::addArtist(std::shared_ptr<Artist> &artist) {
-    for(std::shared_ptr<Artist> tmpArtist: artistList) {
-        if(artist->compare(tmpArtist)) {
-            return;
-        }
-    }
-
     int first = artistList.size();
 
     QModelIndex *qModelIndexParent = new QModelIndex();

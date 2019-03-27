@@ -10,7 +10,7 @@ int TrackSearchResults::rowCount(const QModelIndex&) const {
 }
 
 int TrackSearchResults::columnCount(const QModelIndex&) const {
-    return 2;
+    return 1;
 }
 
 QVariant TrackSearchResults::headerData(int section, Qt::Orientation orientation, int role) const {
@@ -20,8 +20,7 @@ QVariant TrackSearchResults::headerData(int section, Qt::Orientation orientation
 
     if(orientation == Qt::Horizontal) {
         switch(section)  {
-            case 0: return QStringLiteral("#");
-            case 1: return QStringLiteral("Title");
+            case 0: return QStringLiteral("Title");
             default: return QStringLiteral("Column %1").arg(section);
         }
     } else {
@@ -47,8 +46,6 @@ QVariant TrackSearchResults::data(const QModelIndex &index, int role) const {
     int column = index.column();
     std::shared_ptr<Track> track = trackList.at(row);
     if(column == 0) {
-        return track->get_track_number();
-    } else if(column == 1) {
         return track->get_title();
     } else {
         return QVariant();

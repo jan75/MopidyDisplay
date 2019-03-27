@@ -4,6 +4,7 @@
 Album::Album(QString name, std::vector<std::shared_ptr<Artist>> album_artists) {
     this->name = name;
     this->album_artists = album_artists;
+    calculate_object_hash();
 }
 
 void Album::set_name(QString name) {
@@ -41,20 +42,20 @@ void Album::add_track(std::shared_ptr<Track> track) {
 /**
  * @brief Album::compare compares an Album object with another Album object
  * @param album
- * @return boolean 1 if albums are identical, else 0
+ * @return boolean false if albums are identical, else true
  */
 bool Album::compare(Album album) {
-    if(this->object_hash == album.get_object_hash()) {
-        return 1;
+    if(this->get_object_hash() == album.get_object_hash()) {
+        return true;
     } else {
-        return 0;
+        return false;
     }
 }
 
 /**
  * @brief see Album::compare(Album album)
  * @param album
- * @return boolean 1 if albums are identical, else 0
+ * @return boolean false if albums are identical, else true
  */
 bool Album::compare(std::shared_ptr<Album> album) {
     Album *tmpAlbum = album.get();
@@ -82,10 +83,4 @@ void Album::calculate_object_hash() {
     }
 
     this->object_hash = tmp_hashval;
-}
-
-bool Album::album_compare(const std::shared_ptr<Album> &a, const std::shared_ptr<Album> &b) {
-    //std::cout << a->compare(b) << std::endl;
-    //return a->compare(b);
-    return false;
 }
